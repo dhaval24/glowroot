@@ -35,7 +35,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.glowroot.agent.api.Instrumentation;
+import org.glowroot.annotation.api.Instrumentation;
 import org.glowroot.central.repo.ActiveAgentDao;
 import org.glowroot.central.repo.AgentConfigDao;
 import org.glowroot.central.repo.AgentDisplayDao;

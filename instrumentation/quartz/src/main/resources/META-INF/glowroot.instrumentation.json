@@ -1,0 +1,17 @@
+{
+  "name": "Quartz",
+  "id": "quartz",
+  "instrumentation": [
+    {
+      "className": "org.quartz.Job",
+      "methodName": "execute",
+      "methodParameterTypes": [
+        "org.quartz.JobExecutionContext"
+      ],
+      "captureKind": "transaction",
+      "timerName": "quartz job",
+      "transactionType": "Background",
+      "transactionNameTemplate": "Quartz job: {{0.jobDetail.name}}"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2018 the original author or authors.
+ * Copyright 2011-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import org.slf4j.LoggerFactory;
 
 import org.glowroot.agent.model.AggregatedTimer;
 import org.glowroot.agent.model.ImmutableTransactionTimerSnapshot;
-import org.glowroot.agent.model.TimerNameImpl;
 import org.glowroot.agent.model.TransactionTimer;
-import org.glowroot.agent.plugin.api.Timer;
-import org.glowroot.agent.plugin.api.TimerName;
 import org.glowroot.agent.util.Tickers;
 import org.glowroot.common.util.Styles;
+import org.glowroot.engine.impl.TimerNameImpl;
+import org.glowroot.instrumentation.api.Timer;
+import org.glowroot.instrumentation.api.TimerName;
 import org.glowroot.wire.api.model.TraceOuterClass.Trace;
 
 // instances are updated by a single thread, but can be read by other threads

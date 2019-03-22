@@ -20,7 +20,7 @@ import io.netty.util.internal.PlatformDependent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.glowroot.agent.util.JavaVersion;
+import org.glowroot.engine.util.JavaVersion;
 
 public class NettyInit {
 

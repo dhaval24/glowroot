@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2018 the original author or authors.
+ * Copyright 2017-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,8 +31,8 @@ import com.google.common.collect.Lists;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import org.glowroot.agent.config.ConfigFileUtil;
-import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common2.config.PermissionParser;
+import org.glowroot.instrumentation.config.ObjectMappers;
 
 // TODO if admin.json file has unrecognized top-level node then log warning and remove that node
 class AdminConfigFile {

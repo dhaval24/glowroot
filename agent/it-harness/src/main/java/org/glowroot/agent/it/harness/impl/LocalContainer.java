@@ -31,7 +31,7 @@ import org.glowroot.agent.it.harness.AppUnderTest;
 import org.glowroot.agent.it.harness.ConfigService;
 import org.glowroot.agent.it.harness.Container;
 import org.glowroot.agent.it.harness.TempDirs;
-import org.glowroot.agent.weaving.IsolatedWeavingClassLoader;
+import org.glowroot.engine.weaving.IsolatedWeavingClassLoader;
 import org.glowroot.wire.api.model.TraceOuterClass.Trace;
 
 import static com.google.common.base.Preconditions.checkNotNull;

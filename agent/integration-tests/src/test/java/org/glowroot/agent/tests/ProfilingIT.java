@@ -20,12 +20,12 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import org.glowroot.agent.api.Glowroot;
 import org.glowroot.agent.it.harness.AppUnderTest;
 import org.glowroot.agent.it.harness.Container;
 import org.glowroot.agent.it.harness.Containers;
 import org.glowroot.agent.it.harness.Threads;
 import org.glowroot.agent.it.harness.TransactionMarker;
+import org.glowroot.annotation.api.Glowroot;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.TransactionConfig;
 import org.glowroot.wire.api.model.Proto.OptionalInt32;
 import org.glowroot.wire.api.model.TraceOuterClass.Trace;
@@ -103,7 +103,7 @@ public class ProfilingIT {
         }
         @Override
         public void transactionMarker() throws InterruptedException {
-            // normally the plugin/aspect should set the user, this is just a shortcut for test
+            // normally the instrumentation should set the user, this is just a shortcut for test
             Glowroot.setTransactionUser("Able");
             Threads.moreAccurateSleep(200);
         }

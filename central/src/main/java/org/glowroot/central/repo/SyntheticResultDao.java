@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2018 the original author or authors.
+ * Copyright 2017-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@ import java.util.List;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.immutables.value.Value;
 
-import org.glowroot.agent.api.Instrumentation;
-import org.glowroot.agent.api.Instrumentation.AlreadyInTransactionBehavior;
+import org.glowroot.annotation.api.Instrumentation;
+import org.glowroot.annotation.api.Instrumentation.AlreadyInTransactionBehavior;
 import org.glowroot.common2.repo.SyntheticResultRepository;
 
 public interface SyntheticResultDao extends SyntheticResultRepository {

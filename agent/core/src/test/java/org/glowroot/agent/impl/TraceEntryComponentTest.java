@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2018 the original author or authors.
+ * Copyright 2015-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@ package org.glowroot.agent.impl;
 
 import org.junit.Test;
 
-import org.glowroot.agent.plugin.api.Message;
-import org.glowroot.agent.plugin.api.MessageSupplier;
+import org.glowroot.instrumentation.api.Message;
+import org.glowroot.instrumentation.api.MessageSupplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;

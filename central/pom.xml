@@ -20,28 +20,28 @@
   <dependencies>
     <dependency>
       <groupId>org.glowroot</groupId>
-      <artifactId>glowroot-wire-api</artifactId>
+      <artifactId>glowroot-shared-wire-api</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.glowroot</groupId>
-      <artifactId>glowroot-common</artifactId>
+      <artifactId>glowroot-shared-common</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.glowroot</groupId>
-      <artifactId>glowroot-common2</artifactId>
+      <artifactId>glowroot-shared-common2</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.glowroot</groupId>
-      <artifactId>glowroot-ui</artifactId>
+      <artifactId>glowroot-shared-ui</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <!-- this is used to instrument central itself -->
       <groupId>org.glowroot</groupId>
-      <artifactId>glowroot-agent-api</artifactId>
+      <artifactId>glowroot-annotation-api</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

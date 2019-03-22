@@ -20,12 +20,7 @@
   <dependencies>
     <dependency>
       <groupId>org.glowroot</groupId>
-      <artifactId>glowroot-agent-core-unshaded</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.glowroot</groupId>
-      <artifactId>glowroot-common</artifactId>
+      <artifactId>glowroot-instrumentation-config</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -60,6 +55,10 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-guava</artifactId>
     </dependency>
     <dependency>
       <!-- this is to resolve maven enforcer RequireUpperBoundDeps error -->

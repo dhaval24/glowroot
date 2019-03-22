@@ -19,13 +19,13 @@
   <dependencies>
     <dependency>
       <groupId>org.glowroot</groupId>
-      <artifactId>glowroot-agent-api</artifactId>
+      <artifactId>glowroot-annotation-api</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.glowroot</groupId>
-      <artifactId>glowroot-agent-plugin-api</artifactId>
+      <artifactId>glowroot-instrumentation-api</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>

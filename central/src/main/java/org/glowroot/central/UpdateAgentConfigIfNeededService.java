@@ -22,7 +22,7 @@ import com.google.common.annotations.VisibleForTesting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.glowroot.agent.api.Instrumentation;
+import org.glowroot.annotation.api.Instrumentation;
 import org.glowroot.central.repo.ActiveAgentDao;
 import org.glowroot.central.repo.AgentConfigDao;
 import org.glowroot.central.repo.AgentConfigDao.AgentConfigAndUpdateToken;

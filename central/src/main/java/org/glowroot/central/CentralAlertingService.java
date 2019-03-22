@@ -23,8 +23,8 @@ import com.google.common.base.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.glowroot.agent.api.Instrumentation;
-import org.glowroot.agent.api.Instrumentation.AlreadyInTransactionBehavior;
+import org.glowroot.annotation.api.Instrumentation;
+import org.glowroot.annotation.api.Instrumentation.AlreadyInTransactionBehavior;
 import org.glowroot.central.repo.AlertingDisabledDao;
 import org.glowroot.central.repo.ConfigRepositoryImpl;
 import org.glowroot.central.util.MoreExecutors2;

@@ -22,6 +22,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.springframework.test.context.cache.DefaultContextCache;
 
+import org.glowroot.engine.util.JavaVersion;
+
 public class MissingOptionalDependenciesReflectionTest {
 
     @Rule
@@ -55,10 +57,9 @@ public class MissingOptionalDependenciesReflectionTest {
         DefaultContextCache.class.getDeclaredField("hitCount");
     }
 
-    @Test
     public void testReflectionsGetAnyMethod() throws Exception {
         thrown.expect(NoSuchMethodException.class);
-        Reflections.getAnyMethod(DefaultContextCache.class, "size");
+        DefaultContextCache.class.getDeclaredMethod("size");
     }
 
     @Test

@@ -24,7 +24,7 @@
     </dependency>
     <dependency>
       <groupId>org.glowroot</groupId>
-      <artifactId>glowroot-wire-api</artifactId>
+      <artifactId>glowroot-shared-wire-api</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

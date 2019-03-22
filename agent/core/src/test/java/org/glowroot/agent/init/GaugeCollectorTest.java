@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2018 the original author or authors.
+ * Copyright 2015-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,13 +34,13 @@ import org.slf4j.Logger;
 
 import org.glowroot.agent.collector.Collector;
 import org.glowroot.agent.config.ConfigService;
-import org.glowroot.agent.util.LazyPlatformMBeanServer;
 import org.glowroot.common.config.AdvancedConfig;
 import org.glowroot.common.config.GaugeConfig;
 import org.glowroot.common.config.ImmutableAdvancedConfig;
 import org.glowroot.common.config.ImmutableGaugeConfig;
 import org.glowroot.common.config.ImmutableMBeanAttribute;
 import org.glowroot.common.util.Clock;
+import org.glowroot.engine.util.LazyPlatformMBeanServer;
 import org.glowroot.wire.api.model.CollectorServiceOuterClass.GaugeValueMessage.GaugeValue;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
