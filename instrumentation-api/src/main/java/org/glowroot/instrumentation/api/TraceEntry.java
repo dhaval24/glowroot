@@ -118,6 +118,8 @@ public interface TraceEntry {
      * {@code maxTraceEntriesPerTransaction} entries and this is a dummy entry.
      * 
      * Under some error conditions this can return {@code null}.
+     * 
+     * Returns either a {@link MessageSupplier} or {@link QueryMessageSupplier}.
      */
     @Nullable
     Object getMessageSupplier();
