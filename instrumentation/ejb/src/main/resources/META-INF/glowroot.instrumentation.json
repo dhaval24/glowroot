@@ -11,6 +11,7 @@
       "captureKind": "transaction",
       "transactionType": "Background",
       "transactionNameTemplate": "EJB timer: {{this.class.simpleName}}#{{methodName}}",
+      "alreadyInTransactionBehavior": "capture-trace-entry",
       "traceEntryMessageTemplate": "EJB timer: {{this.class.name}}.{{methodName}}()",
       "timerName": "ejb timer"
     }

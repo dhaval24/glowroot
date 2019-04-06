@@ -11,8 +11,8 @@
       ],
       "nestingGroup": "redis",
       "captureKind": "trace-entry",
-      "timerName": "redis",
-      "traceEntryMessageTemplate": "redis {{this.host}}:{{this.port}} {{0}}"
+      "traceEntryMessageTemplate": "redis {{this.host}}:{{this.port}} {{0}}",
+      "timerName": "redis"
     }
   ]
 }

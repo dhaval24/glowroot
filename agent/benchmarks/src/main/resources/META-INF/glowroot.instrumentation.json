@@ -8,6 +8,7 @@
       "methodParameterTypes": [ ],
       "captureKind": "transaction",
       "transactionNameTemplate": "transaction worthy",
+      "alreadyInTransactionBehavior": "capture-trace-entry",
       "timerName": "transaction worthy"
     },
     {
@@ -15,8 +16,8 @@
       "methodName": "doSomethingTraceEntryWorthy2",
       "methodParameterTypes": [ ],
       "captureKind": "trace-entry",
-      "timerName": "trace entry worthy",
-      "traceEntryMessageTemplate": "trace entry worthy: {{this.name}}"
+      "traceEntryMessageTemplate": "trace entry worthy: {{this.name}}",
+      "timerName": "trace entry worthy"
     },
     {
       "className": "org.glowroot.microbenchmarks.core.support.TimerWorthy",

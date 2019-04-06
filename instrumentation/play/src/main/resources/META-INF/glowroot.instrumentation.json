@@ -19,8 +19,8 @@
         "java.util.Map"
       ],
       "captureKind": "trace-entry",
-      "timerName": "play render",
-      "traceEntryMessageTemplate": "play render: {{0}}"
+      "traceEntryMessageTemplate": "play render: {{0}}",
+      "timerName": "play render"
     }
   ],
   "classes": [

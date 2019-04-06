@@ -17,18 +17,17 @@ package org.glowroot.engine.config;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.collect.ImmutableList;
+import com.google.gson.annotations.SerializedName;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.immutables.gson.Gson;
 import org.immutables.value.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.glowroot.engine.config.PropertyValue.PropertyType;
 
-@JsonSerialize
+@Gson.TypeAdapters
 @Value.Immutable
 public abstract class PropertyDescriptor {
 
@@ -38,7 +37,7 @@ public abstract class PropertyDescriptor {
 
     public abstract PropertyType type();
 
-    @JsonProperty("default")
+    @SerializedName("default")
     public abstract @Nullable PropertyValue defaultValue();
 
     public abstract String label();
@@ -53,7 +52,7 @@ public abstract class PropertyDescriptor {
         return "";
     }
 
-    @JsonIgnore
+    @Gson.Ignore
     public PropertyValue getValidatedNonNullDefaultValue() {
         PropertyValue defaultValue = defaultValue();
         if (defaultValue == null) {

@@ -17,21 +17,20 @@ package org.glowroot.engine.config;
 
 import java.io.File;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.collect.ImmutableList;
+import com.google.gson.annotations.SerializedName;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.immutables.gson.Gson;
 import org.immutables.value.Value;
 
-@JsonSerialize
+@Gson.TypeAdapters
 @Value.Immutable
 public abstract class InstrumentationDescriptor {
 
     public abstract String id();
     public abstract String name();
     public abstract ImmutableList<PropertyDescriptor> properties();
-    @JsonProperty("advice")
+    @SerializedName("advice")
     public abstract ImmutableList<AdviceConfig> adviceConfigs();
     public abstract ImmutableList<String> classes();
     @Value.Default
@@ -39,6 +38,6 @@ public abstract class InstrumentationDescriptor {
         return false;
     }
 
-    @JsonIgnore
+    @Gson.Ignore
     public abstract @Nullable File jarFile();
 }

@@ -21,12 +21,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.io.Resources;
+import com.google.gson.JsonSyntaxException;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -140,9 +140,9 @@ public class InstrumentationDescriptorBuilder {
         String content = Resources.toString(url, UTF_8);
         ImmutableInstrumentationDescriptor descriptor;
         try {
-            descriptor = InstrumentationDescriptors.getMapper().readValue(content,
+            descriptor = InstrumentationDescriptors.getGson().fromJson(content,
                     ImmutableInstrumentationDescriptor.class);
-        } catch (JsonProcessingException e) {
+        } catch (JsonSyntaxException e) {
             logger.error("error parsing instrumentation descriptor: {}", url.toExternalForm(), e);
             return;
         }

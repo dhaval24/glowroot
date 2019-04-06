@@ -9,9 +9,10 @@
         "org.quartz.JobExecutionContext"
       ],
       "captureKind": "transaction",
-      "timerName": "quartz job",
       "transactionType": "Background",
-      "transactionNameTemplate": "Quartz job: {{0.jobDetail.name}}"
+      "transactionNameTemplate": "Quartz job: {{0.jobDetail.name}}",
+      "alreadyInTransactionBehavior": "capture-trace-entry",
+      "timerName": "quartz job"
     }
   ]
 }

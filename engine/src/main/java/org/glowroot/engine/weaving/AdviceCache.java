@@ -80,8 +80,7 @@ public class AdviceCache {
             mixinTypes.addAll(getMixinTypes(detail.mixinClasses()));
             shimTypes.addAll(getShimTypes(detail.shimClasses()));
 
-            List<AdviceConfig> configs =
-                    descriptor.adviceConfigs();
+            List<AdviceConfig> configs = descriptor.adviceConfigs();
             for (AdviceConfig config : configs) {
                 config.logValidationErrorsIfAny();
             }

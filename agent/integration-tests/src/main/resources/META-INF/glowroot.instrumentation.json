@@ -65,11 +65,11 @@
         "java.lang.String"
       ],
       "captureKind": "transaction",
-      "alreadyInTransactionBehavior": "do-nothing",
-      "timerName": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING",
-      "traceEntryMessageTemplate": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING",
       "transactionType": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING",
-      "transactionNameTemplate": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING"
+      "transactionNameTemplate": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING",
+      "alreadyInTransactionBehavior": "do-nothing",
+      "traceEntryMessageTemplate": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING",
+      "timerName": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING"
     },
     {
       "className": "org.glowroot.agent.tests.app.LevelFour",
@@ -79,11 +79,11 @@
         "java.lang.String"
       ],
       "captureKind": "transaction",
-      "alreadyInTransactionBehavior": "do-nothing",
-      "timerName": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING",
-      "traceEntryMessageTemplate": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING",
       "transactionType": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING",
       "transactionNameTemplate": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING",
+      "alreadyInTransactionBehavior": "do-nothing",
+      "traceEntryMessageTemplate": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING",
+      "timerName": "THIS SHOULD NEVER HAPPEN IN TESTS SINCE DO NOTHING",
       "enabledProperty": "DUMMY"
     },
     {
@@ -94,8 +94,8 @@
         "java.lang.String"
       ],
       "captureKind": "trace-entry",
-      "timerName": "level four",
-      "traceEntryMessageTemplate": "Level Four: {{0}}, {{1}}"
+      "traceEntryMessageTemplate": "Level Four: {{0}}, {{1}}",
+      "timerName": "level four"
     },
     {
       "className": "org.glowroot.agent.tests.app.LevelFive",
@@ -105,8 +105,8 @@
         "java.lang.String"
       ],
       "captureKind": "trace-entry",
-      "timerName": "level five",
       "traceEntryMessageTemplate": "Level Five: {{0}}, {{1}}",
+      "timerName": "level five",
       "enabledProperty": "levelFiveEnabled",
       "traceEntryEnabledProperty": "levelFiveEntryEnabled"
     },
@@ -116,8 +116,8 @@
       "methodParameterTypes": [
       ],
       "captureKind": "trace-entry",
-      "timerName": "exceptional",
-      "traceEntryMessageTemplate": "Exceptional entry"
+      "traceEntryMessageTemplate": "Exceptional entry",
+      "timerName": "exceptional"
     },
     {
       "className": "org.glowroot.agent.tests.app.AAA",
@@ -139,8 +139,8 @@
       "methodName": "get*",
       "methodParameterTypes": [],
       "captureKind": "trace-entry",
-      "timerName": "coverage",
-      "traceEntryMessageTemplate": "Coverage get: {{_}}"
+      "traceEntryMessageTemplate": "Coverage get: {{_}}",
+      "timerName": "coverage"
     },
     {
       "className": "org.glowroot.agent.tests.app.CoverAllTypes",
@@ -149,8 +149,8 @@
         "*"
       ],
       "captureKind": "trace-entry",
-      "timerName": "coverage",
-      "traceEntryMessageTemplate": "Coverage put: {{0}}"
+      "traceEntryMessageTemplate": "Coverage put: {{0}}",
+      "timerName": "coverage"
     },
     {
       "className": "org.glowroot.agent.tests.app.StackOverflowTester",
@@ -158,9 +158,9 @@
       "methodParameterTypes": [
       ],
       "captureKind": "trace-entry",
+      "traceEntryMessageTemplate": "Recurse",
       "traceEntryCaptureSelfNested": true,
-      "timerName": "recurse",
-      "traceEntryMessageTemplate": "Recurse"
+      "timerName": "recurse"
     },
     {
       "className": "org.glowroot.agent.tests.javaagent.LambdaWeavingIT$Lambda",
@@ -169,8 +169,8 @@
         ".."
       ],
       "captureKind": "trace-entry",
-      "timerName": "lambda",
-      "traceEntryMessageTemplate": "lambda: {{0}} => {{_}}"
+      "traceEntryMessageTemplate": "lambda: {{0}} => {{_}}",
+      "timerName": "lambda"
     }
   ],
   "classes": [

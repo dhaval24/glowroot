@@ -18,23 +18,39 @@ package org.glowroot.engine.config;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ServiceLoader;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
+import com.google.common.io.Resources;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
 
+import org.glowroot.engine.config.PropertyValue.PropertyValueTypeAdapter;
+
+import static com.google.common.base.Charsets.ISO_8859_1;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class InstrumentationDescriptors {
 
-    private static final ObjectMapper mapper = ObjectMappers.create();
+    private static final Gson gson;
 
     static {
-        SimpleModule module = new SimpleModule();
-        module.addAbstractTypeMapping(AdviceConfig.class, ImmutableAdviceConfig.class);
-        module.addAbstractTypeMapping(PropertyDescriptor.class, ImmutablePropertyDescriptor.class);
-        mapper.registerModule(module);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        for (TypeAdapterFactory factory : ServiceLoader.load(TypeAdapterFactory.class)) {
+            gsonBuilder.registerTypeAdapterFactory(factory);
+        }
+        gsonBuilder.registerTypeAdapter(PropertyValue.class, new PropertyValueTypeAdapter());
+        gsonBuilder.registerTypeAdapterFactory(new EnumTypeAdapterFactory());
+        gson = gsonBuilder.create();
     }
 
     public static List<InstrumentationDescriptor> readInstrumentationList() throws IOException {
@@ -43,13 +59,45 @@ public class InstrumentationDescriptors {
         if (url == null) {
             return ImmutableList.of();
         } else {
-            List<InstrumentationDescriptor> descriptors = mapper.readValue(url,
-                    new TypeReference<List<ImmutableInstrumentationDescriptor>>() {});
+            String json = Resources.toString(url, ISO_8859_1);
+            List<InstrumentationDescriptor> descriptors = gson.fromJson(json,
+                    new TypeToken<List<ImmutableInstrumentationDescriptor>>() {}.getType());
             return checkNotNull(descriptors);
         }
     }
 
-    public static ObjectMapper getMapper() {
-        return mapper;
+    public static Gson getGson() {
+        return gson;
+    }
+
+    private static class EnumTypeAdapterFactory implements TypeAdapterFactory {
+        @Override
+        public <T> /*@Nullable*/ TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+            @SuppressWarnings("unchecked")
+            Class<T> rawType = (Class<T>) type.getRawType();
+            if (!rawType.isEnum()) {
+                return null;
+            }
+            final Map<String, T> enumConstants = Maps.newHashMap();
+            for (T enumConstant : rawType.getEnumConstants()) {
+                enumConstants.put(((Enum<?>) enumConstant).name().replace('_', '-')
+                        .toLowerCase(Locale.ENGLISH), enumConstant);
+            }
+            return new TypeAdapter<T>() {
+                @Override
+                public T read(JsonReader reader) throws IOException {
+                    if (reader.peek() == JsonToken.NULL) {
+                        reader.nextNull();
+                        return null;
+                    } else {
+                        return enumConstants.get(reader.nextString());
+                    }
+                }
+                @Override
+                public void write(JsonWriter out, T value) throws IOException {
+                    throw new UnsupportedOperationException("This should not be needed");
+                }
+            };
+        }
     }
 }

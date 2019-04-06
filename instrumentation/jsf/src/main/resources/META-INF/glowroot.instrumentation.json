@@ -10,8 +10,8 @@
       ],
       "nestingGroup": "jsf",
       "captureKind": "trace-entry",
-      "timerName": "jsf apply request",
-      "traceEntryMessageTemplate": "jsf apply request: {{0.viewRoot.viewId}}"
+      "traceEntryMessageTemplate": "jsf apply request: {{0.viewRoot.viewId}}",
+      "timerName": "jsf apply request"
     },
     {
       "className": "com.sun.faces.application.ActionListenerImpl",
@@ -21,8 +21,8 @@
       ],
       "nestingGroup": "jsf",
       "captureKind": "trace-entry",
-      "timerName": "jsf invoke",
-      "traceEntryMessageTemplate": "jsf invoke: {{0.component.action.expressionString}}"
+      "traceEntryMessageTemplate": "jsf invoke: {{0.component.action.expressionString}}",
+      "timerName": "jsf invoke"
     },
     {
       "className": "com.sun.faces.lifecycle.RenderResponsePhase",
@@ -32,8 +32,8 @@
       ],
       "nestingGroup": "jsf",
       "captureKind": "trace-entry",
-      "timerName": "jsf render",
-      "traceEntryMessageTemplate": "jsf render: {{0.viewRoot.viewId}}"
+      "traceEntryMessageTemplate": "jsf render: {{0.viewRoot.viewId}}",
+      "timerName": "jsf render"
     }
   ]
 }

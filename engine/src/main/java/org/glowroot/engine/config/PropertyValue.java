@@ -18,23 +18,13 @@ package org.glowroot.engine.config;
 import java.io.IOException;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.collect.Lists;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import org.glowroot.engine.config.PropertyValue.PropertyValueDeserializer;
-import org.glowroot.engine.config.PropertyValue.PropertyValueSerializer;
-
-@JsonSerialize(using = PropertyValueSerializer.class)
-@JsonDeserialize(using = PropertyValueDeserializer.class)
 public class PropertyValue {
 
     // can be boolean, @Nullable Double or @NonNull String
@@ -51,53 +41,24 @@ public class PropertyValue {
         STRING, BOOLEAN, DOUBLE, LIST
     }
 
-    static class PropertyValueSerializer extends JsonSerializer<PropertyValue> {
+    public static class PropertyValueTypeAdapter extends TypeAdapter<PropertyValue> {
 
         @Override
-        public void serialize(PropertyValue propertyValue, JsonGenerator jgen,
-                SerializerProvider provider) throws IOException {
-            Object value = propertyValue.value();
-            if (value == null) {
-                jgen.writeNull();
-            } else if (value instanceof Boolean) {
-                jgen.writeBoolean((Boolean) value);
-            } else if (value instanceof String) {
-                jgen.writeString((String) value);
-            } else if (value instanceof Double) {
-                jgen.writeNumber((Double) value);
-            } else if (value instanceof List) {
-                jgen.writeStartArray();
-                for (Object v : (List<?>) value) {
-                    jgen.writeString((String) v);
-                }
-                jgen.writeEndArray();
-            } else {
-                throw new AssertionError(
-                        "Unexpected property value type: " + value.getClass().getName());
-            }
-        }
-    }
-
-    static class PropertyValueDeserializer extends JsonDeserializer<PropertyValue> {
-
-        @Override
-        public PropertyValue deserialize(JsonParser parser, DeserializationContext ctxt)
-                throws IOException {
-            JsonToken token = parser.getCurrentToken();
+        public PropertyValue read(JsonReader in) throws IOException {
+            JsonToken token = in.peek();
             switch (token) {
-                case VALUE_FALSE:
-                case VALUE_TRUE:
-                    return new PropertyValue(parser.getBooleanValue());
-                case VALUE_NUMBER_FLOAT:
-                case VALUE_NUMBER_INT:
-                    return new PropertyValue(parser.getDoubleValue());
-                case VALUE_STRING:
-                    return new PropertyValue(parser.getText());
-                case START_ARRAY:
+                case BOOLEAN:
+                    return new PropertyValue(in.nextBoolean());
+                case NUMBER:
+                    return new PropertyValue(in.nextDouble());
+                case STRING:
+                    return new PropertyValue(in.nextString());
+                case BEGIN_ARRAY:
                     List<String> list = Lists.newArrayList();
-                    while (parser.nextToken() != JsonToken.END_ARRAY) {
-                        list.add(parser.getText());
+                    while (in.peek() != JsonToken.END_ARRAY) {
+                        list.add(in.nextString());
                     }
+                    in.endArray();
                     return new PropertyValue(list);
                 default:
                     throw new AssertionError("Unexpected json type: " + token);
@@ -105,8 +66,8 @@ public class PropertyValue {
         }
 
         @Override
-        public PropertyValue getNullValue(DeserializationContext ctxt) {
-            return new PropertyValue(null);
+        public void write(JsonWriter out, PropertyValue value) {
+            throw new UnsupportedOperationException("This should not be needed");
         }
     }
 }

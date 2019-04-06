@@ -13,8 +13,9 @@
       "captureKind": "transaction",
       "transactionType": "Background",
       "transactionNameTemplate": "Camel pipeline",
-      "timerName": "camel pipeline",
-      "traceEntryMessageTemplate": "camel pipeline => {{_}}"
+      "alreadyInTransactionBehavior": "capture-trace-entry",
+      "traceEntryMessageTemplate": "camel pipeline => {{_}}",
+      "timerName": "camel pipeline"
     }
   ]
 }

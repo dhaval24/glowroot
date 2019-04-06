@@ -128,6 +128,11 @@
         <version>${immutables.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.immutables</groupId>
+        <artifactId>gson</artifactId>
+        <version>${immutables.version}</version>
+      </dependency>
+      <dependency>
         <!-- the presence of this dependency triggers generation of Java 6 compatible classes -->
         <groupId>org.immutables</groupId>
         <artifactId>android-stub</artifactId>

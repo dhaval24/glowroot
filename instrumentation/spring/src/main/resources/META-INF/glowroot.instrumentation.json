@@ -18,9 +18,10 @@
         "org.springframework.batch.core.StepExecution"
       ],
       "captureKind": "transaction",
-      "timerName": "spring batch",
       "transactionType": "Background",
-      "transactionNameTemplate": "Spring Batch: {{this.name}}"
+      "transactionNameTemplate": "Spring Batch: {{this.name}}",
+      "alreadyInTransactionBehavior": "capture-trace-entry",
+      "timerName": "spring batch"
     },
     {
       "className": "org.springframework.jms.listener.SessionAwareMessageListener",
@@ -45,6 +46,7 @@
       "captureKind": "transaction",
       "transactionType": "Background",
       "transactionNameTemplate": "Spring scheduled: {{this.class.simpleName}}#{{methodName}}",
+      "alreadyInTransactionBehavior": "capture-trace-entry",
       "traceEntryMessageTemplate": "Spring scheduled: {{this.class.name}}.{{methodName}}()",
       "timerName": "spring scheduled"
     }
