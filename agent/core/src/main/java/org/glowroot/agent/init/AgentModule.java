@@ -119,9 +119,8 @@ public class AgentModule {
                         instrumentationId);
             }
         };
-        engineModule = new EngineModule(instrumentation, tmpDir, ticker,
-                instrumentationDescriptors, configService.getCustomInstrumentationConfigs(),
-                threadContextThreadLocal, timerNameCache,
+        engineModule = new EngineModule(instrumentation, tmpDir, ticker, instrumentationDescriptors,
+                configService.getAdviceConfigs(), threadContextThreadLocal, timerNameCache,
                 new GlowrootServiceImpl(transactionRegistry), configServiceFactory,
                 transactionRegistry, preCheckClassFileTransformer, allPreCheckLoadedClasses,
                 glowrootJarFile);

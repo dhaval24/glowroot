@@ -35,6 +35,9 @@ import org.slf4j.LoggerFactory;
 import org.glowroot.common.config.AdvancedConfig;
 import org.glowroot.common.config.AlertConfig;
 import org.glowroot.common.config.CustomInstrumentationConfig;
+import org.glowroot.common.config.CustomInstrumentationConfig.AlreadyInTransactionBehavior;
+import org.glowroot.common.config.CustomInstrumentationConfig.CaptureKind;
+import org.glowroot.common.config.CustomInstrumentationConfig.MethodModifier;
 import org.glowroot.common.config.CustomInstrumentationConfigProto;
 import org.glowroot.common.config.GaugeConfig;
 import org.glowroot.common.config.ImmutableAdvancedConfig;
@@ -51,6 +54,8 @@ import org.glowroot.common.config.SyntheticMonitorConfig;
 import org.glowroot.common.config.TransactionConfig;
 import org.glowroot.common.config.UiDefaultsConfig;
 import org.glowroot.common.util.OnlyUsedByTests;
+import org.glowroot.engine.config.AdviceConfig;
+import org.glowroot.engine.config.ImmutableAdviceConfig;
 import org.glowroot.engine.config.InstrumentationDescriptor;
 import org.glowroot.engine.config.PropertyDescriptor;
 import org.glowroot.engine.config.PropertyValue;
@@ -213,6 +218,14 @@ public class ConfigService {
 
     public List<CustomInstrumentationConfig> getCustomInstrumentationConfigs() {
         return customInstrumentationConfigs;
+    }
+
+    public List<AdviceConfig> getAdviceConfigs() {
+        List<AdviceConfig> adviceConfigs = Lists.newArrayList();
+        for (CustomInstrumentationConfig config : customInstrumentationConfigs) {
+            adviceConfigs.add(toAdviceConfig(config));
+        }
+        return adviceConfigs;
     }
 
     public long getGaugeCollectionIntervalMillis() {
@@ -500,6 +513,56 @@ public class ConfigService {
         } else {
             logger.warn("invalid value for instrumentation property: {}", propertyName);
             return PropertyDescriptor.getDefaultValue(propertyType);
+        }
+    }
+
+    private static AdviceConfig toAdviceConfig(CustomInstrumentationConfig config) {
+        @SuppressWarnings("deprecation")
+        ImmutableAdviceConfig.Builder builder = ImmutableAdviceConfig.builder()
+                .className(config.className())
+                .classAnnotation(config.classAnnotation())
+                .subTypeRestriction(config.subTypeRestriction())
+                .superTypeRestriction(config.superTypeRestriction())
+                .methodDeclaringClassName(config.methodDeclaringClassName())
+                .methodName(config.methodName())
+                .methodAnnotation(config.methodAnnotation())
+                .addAllMethodParameterTypes(config.methodParameterTypes())
+                .methodReturnType(config.methodReturnType());
+        for (MethodModifier methodModifier : config.methodModifiers()) {
+            builder.addMethodModifiers(toAdviceConfig(methodModifier));
+        }
+        return builder.nestingGroup(config.nestingGroup())
+                .order(config.order())
+                .captureKind(toAdviceConfig(config.captureKind()))
+                .transactionType(config.transactionType())
+                .transactionNameTemplate(config.transactionNameTemplate())
+                .transactionUserTemplate(config.transactionUserTemplate())
+                .putAllTransactionAttributeTemplates(config.transactionAttributeTemplates())
+                .transactionSlowThresholdMillis(config.transactionSlowThresholdMillis())
+                .alreadyInTransactionBehavior(toAdviceConfig(config.alreadyInTransactionBehavior()))
+                .transactionOuter(config.transactionOuter())
+                .traceEntryMessageTemplate(config.traceEntryMessageTemplate())
+                .traceEntryStackThresholdMillis(config.traceEntryStackThresholdMillis())
+                .traceEntryCaptureSelfNested(config.traceEntryCaptureSelfNested())
+                .timerName(config.timerName())
+                .build();
+    }
+
+    private static AdviceConfig.MethodModifier toAdviceConfig(MethodModifier methodModifier) {
+        return AdviceConfig.MethodModifier.valueOf(methodModifier.name());
+    }
+
+    private static AdviceConfig.CaptureKind toAdviceConfig(CaptureKind captureKind) {
+        return AdviceConfig.CaptureKind.valueOf(captureKind.name());
+    }
+
+    private static @Nullable AdviceConfig.AlreadyInTransactionBehavior toAdviceConfig(
+            @Nullable AlreadyInTransactionBehavior alreadyInTransactionBehavior) {
+        if (alreadyInTransactionBehavior == null) {
+            return null;
+        } else {
+            return AdviceConfig.AlreadyInTransactionBehavior
+                    .valueOf(alreadyInTransactionBehavior.name());
         }
     }
 

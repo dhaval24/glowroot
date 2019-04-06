@@ -37,8 +37,8 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
 import org.glowroot.agent.config.ConfigService;
 import org.glowroot.agent.live.ClasspathCache.UiAnalyzedMethod;
-import org.glowroot.common.config.CustomInstrumentationConfig;
 import org.glowroot.common.live.LiveWeavingService;
+import org.glowroot.engine.config.AdviceConfig;
 import org.glowroot.engine.weaving.AdviceCache;
 import org.glowroot.engine.weaving.AnalyzedWorld;
 import org.glowroot.engine.weaving.Reweaving;
@@ -85,8 +85,7 @@ public class LiveWeavingServiceImpl implements LiveWeavingService {
     @Override
     public GlobalMeta getGlobalMeta(String agentId) {
         return GlobalMeta.newBuilder()
-                .setJvmOutOfSync(
-                        adviceCache.isOutOfSync(configService.getCustomInstrumentationConfigs()))
+                .setJvmOutOfSync(adviceCache.isOutOfSync(configService.getAdviceConfigs()))
                 .setJvmRetransformClassesSupported(jvmRetransformClassesSupported)
                 .build();
     }
@@ -178,10 +177,10 @@ public class LiveWeavingServiceImpl implements LiveWeavingService {
 
     @RequiresNonNull("instrumentation")
     private int reweaveInternal() throws Exception {
-        List<CustomInstrumentationConfig> configs = configService.getCustomInstrumentationConfigs();
+        List<AdviceConfig> configs = configService.getAdviceConfigs();
         adviceCache.updateAdvisors(configs);
         Set<PointcutClassName> pointcutClassNames = Sets.newHashSet();
-        for (CustomInstrumentationConfig config : configs) {
+        for (AdviceConfig config : configs) {
             PointcutClassName subTypeRestrictionPointClassName = null;
             String subTypeRestriction = config.subTypeRestriction();
             if (!subTypeRestriction.isEmpty()) {
