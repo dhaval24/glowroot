@@ -34,6 +34,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.immutables.value.Value;
 
 import org.glowroot.common.util.Clock;
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common.util.Styles;
 import org.glowroot.common.util.Versions;
 import org.glowroot.common2.config.MoreConfigDefaults;
@@ -48,7 +49,6 @@ import org.glowroot.common2.repo.Utils;
 import org.glowroot.common2.repo.util.AlertingService;
 import org.glowroot.common2.repo.util.Formatting;
 import org.glowroot.common2.repo.util.Gauges;
-import org.glowroot.instrumentation.config.ObjectMappers;
 import org.glowroot.ui.AlertConfigJsonService.AlertConfigDto.AlertConditionDto;
 import org.glowroot.ui.AlertConfigJsonService.AlertConfigDto.MetricConditionDto;
 import org.glowroot.ui.GaugeValueJsonService.GaugeOrdering;

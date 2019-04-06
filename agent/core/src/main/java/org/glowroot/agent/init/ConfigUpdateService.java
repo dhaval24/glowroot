@@ -21,7 +21,7 @@ import java.util.List;
 import org.glowroot.agent.collector.Collector.AgentConfigUpdater;
 import org.glowroot.agent.config.AllConfig;
 import org.glowroot.agent.config.ConfigService;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
+import org.glowroot.engine.config.InstrumentationDescriptor;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig;
 
 class ConfigUpdateService implements AgentConfigUpdater {

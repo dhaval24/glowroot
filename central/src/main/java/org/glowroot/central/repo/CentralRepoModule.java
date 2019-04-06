@@ -34,11 +34,11 @@ import org.glowroot.central.v09support.GaugeValueDaoWithV09Support;
 import org.glowroot.central.v09support.SyntheticResultDaoWithV09Support;
 import org.glowroot.central.v09support.TraceDaoWithV09Support;
 import org.glowroot.common.util.Clock;
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common2.config.AllCentralAdminConfig;
 import org.glowroot.common2.config.ImmutableAllCentralAdminConfig;
 import org.glowroot.common2.repo.AllAdminConfigUtil;
 import org.glowroot.common2.repo.util.RollupLevelService;
-import org.glowroot.instrumentation.config.ObjectMappers;
 
 import static com.google.common.base.Charsets.UTF_8;
 import static com.google.common.base.Preconditions.checkNotNull;

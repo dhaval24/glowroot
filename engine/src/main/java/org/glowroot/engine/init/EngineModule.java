@@ -36,6 +36,9 @@ import org.slf4j.LoggerFactory;
 
 import org.glowroot.engine.bytecode.api.BytecodeServiceHolder;
 import org.glowroot.engine.bytecode.api.ThreadContextThreadLocal;
+import org.glowroot.engine.config.AdviceConfig;
+import org.glowroot.engine.config.InstrumentationDescriptor;
+import org.glowroot.engine.config.InstrumentationDescriptors;
 import org.glowroot.engine.impl.InstrumentationServiceImpl;
 import org.glowroot.engine.impl.InstrumentationServiceImpl.ConfigServiceFactory;
 import org.glowroot.engine.impl.SimpleConfigServiceFactory;
@@ -56,9 +59,6 @@ import org.glowroot.engine.weaving.PreloadSomeSuperTypesCache;
 import org.glowroot.engine.weaving.Weaver;
 import org.glowroot.engine.weaving.WeavingClassFileTransformer;
 import org.glowroot.instrumentation.api.internal.InstrumentationServiceHolder;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
-import org.glowroot.instrumentation.config.InstrumentationDescriptors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -84,7 +84,7 @@ public class EngineModule {
         List<InstrumentationDescriptor> instrumentationDescriptors =
                 InstrumentationDescriptors.readInstrumentationList();
         return new EngineModule(instrumentation, tmpDir, Ticker.systemTicker(),
-                Collections.<CustomInstrumentationConfig>emptyList(), instrumentationDescriptors,
+                instrumentationDescriptors, Collections.<AdviceConfig>emptyList(),
                 threadContextThreadLocal, new TimerNameCache(), glowrootServiceSPI,
                 new SimpleConfigServiceFactory(instrumentationDescriptors), agentSPI, null,
                 new Class<?>[0],
@@ -92,8 +92,8 @@ public class EngineModule {
     }
 
     public EngineModule(@Nullable Instrumentation instrumentation, File tmpDir, Ticker ticker,
-            List<CustomInstrumentationConfig> customInstrumentationConfigs,
             List<InstrumentationDescriptor> instrumentationDescriptors,
+            List<AdviceConfig> reweavableAdviceConfigs,
             ThreadContextThreadLocal threadContextThreadLocal, TimerNameCache timerNameCache,
             GlowrootServiceSPI glowrootServiceSPI, ConfigServiceFactory configServiceFactory,
             AgentSPI agentSPI, @Nullable PreCheckClassFileTransformer preCheckClassFileTransformer,
@@ -138,7 +138,7 @@ public class EngineModule {
                 pointcutClassFileTransformer = new PointcutClassFileTransformer();
                 instrumentation.addTransformer(pointcutClassFileTransformer);
             }
-            adviceCache = new AdviceCache(instrumentationDescriptors, customInstrumentationConfigs,
+            adviceCache = new AdviceCache(instrumentationDescriptors, reweavableAdviceConfigs,
                     instrumentation, tmpDir);
             if (pointcutClassFileTransformer != null) {
                 checkNotNull(instrumentation).removeTransformer(pointcutClassFileTransformer);

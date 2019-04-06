@@ -49,8 +49,8 @@ import org.slf4j.LoggerFactory;
 
 import org.glowroot.annotation.api.Glowroot;
 import org.glowroot.common.util.Clock;
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common.util.Throwables;
-import org.glowroot.instrumentation.config.ObjectMappers;
 import org.glowroot.ui.HttpSessionManager.Authentication;
 
 import static com.google.common.base.Charsets.UTF_8;

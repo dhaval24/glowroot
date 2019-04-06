@@ -42,8 +42,8 @@ import org.objectweb.asm.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glowroot.engine.config.AdviceConfig;
 import org.glowroot.engine.weaving.ClassLoaders.LazyDefinedClass;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig;
 
 import static com.google.common.base.Charsets.UTF_8;
 
@@ -151,7 +151,7 @@ public class AnalyzedWorld {
         InstrumentationSeekerClassVisitor cv = new InstrumentationSeekerClassVisitor();
         ClassReader cr = new ClassReader(classBytes);
         cr.accept(cv, ClassReader.SKIP_CODE);
-        List<CustomInstrumentationConfig> configs = cv.getConfigs();
+        List<AdviceConfig> configs = cv.getConfigs();
         if (configs.isEmpty()) {
             return advisors;
         }
@@ -160,7 +160,7 @@ public class AnalyzedWorld {
                     + " loader: {}", className);
             return advisors;
         }
-        for (CustomInstrumentationConfig config : configs) {
+        for (AdviceConfig config : configs) {
             config.logValidationErrorsIfAny();
         }
         ImmutableMap<Advice, LazyDefinedClass> newAdvisors =

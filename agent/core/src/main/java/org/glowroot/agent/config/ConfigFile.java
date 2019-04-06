@@ -31,8 +31,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common.util.OnlyUsedByTests;
-import org.glowroot.instrumentation.config.ObjectMappers;
 
 // TODO if config.json file has unrecognized top-level node (something other than "transactions",
 // "uiDefaults", "advanced", etc) then log warning and remove that node

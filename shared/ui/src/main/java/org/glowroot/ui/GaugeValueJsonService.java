@@ -32,13 +32,13 @@ import com.google.common.io.CharStreams;
 import org.immutables.value.Value;
 
 import org.glowroot.common.util.CaptureTimes;
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common2.repo.ConfigRepository;
 import org.glowroot.common2.repo.ConfigRepository.RollupConfig;
 import org.glowroot.common2.repo.GaugeValueRepository;
 import org.glowroot.common2.repo.GaugeValueRepository.Gauge;
 import org.glowroot.common2.repo.ImmutableGauge;
 import org.glowroot.common2.repo.util.RollupLevelService;
-import org.glowroot.instrumentation.config.ObjectMappers;
 import org.glowroot.wire.api.model.CollectorServiceOuterClass.GaugeValueMessage.GaugeValue;
 
 import static com.google.common.base.Preconditions.checkNotNull;

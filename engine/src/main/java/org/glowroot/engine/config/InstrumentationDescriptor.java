@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.glowroot.instrumentation.config;
+package org.glowroot.engine.config;
 
 import java.io.File;
 
@@ -32,7 +32,7 @@ public abstract class InstrumentationDescriptor {
     public abstract String name();
     public abstract ImmutableList<PropertyDescriptor> properties();
     @JsonProperty("instrumentation")
-    public abstract ImmutableList<CustomInstrumentationConfig> instrumentationConfigs();
+    public abstract ImmutableList<AdviceConfig> adviceConfigs();
     public abstract ImmutableList<String> classes();
     @Value.Default
     public boolean collocate() {

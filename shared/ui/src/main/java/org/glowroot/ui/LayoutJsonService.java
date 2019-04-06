@@ -21,11 +21,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import org.immutables.value.Value;
 
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common2.config.RoleConfig.HasAnyPermission;
 import org.glowroot.common2.repo.ActiveAgentRepository;
 import org.glowroot.common2.repo.ActiveAgentRepository.AgentRollup;
 import org.glowroot.common2.repo.ActiveAgentRepository.TopLevelAgentRollup;
-import org.glowroot.instrumentation.config.ObjectMappers;
 import org.glowroot.ui.HttpSessionManager.Authentication;
 import org.glowroot.ui.LayoutService.AgentRollupLayout;
 import org.glowroot.ui.LayoutService.FilteredChildAgentRollup;

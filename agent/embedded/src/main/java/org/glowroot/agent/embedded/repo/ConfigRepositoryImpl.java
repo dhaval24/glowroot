@@ -34,6 +34,7 @@ import org.glowroot.agent.config.InstrumentationConfig;
 import org.glowroot.agent.embedded.config.AdminConfigService;
 import org.glowroot.common.config.AdvancedConfig;
 import org.glowroot.common.config.AlertConfig;
+import org.glowroot.common.config.CustomInstrumentationConfig;
 import org.glowroot.common.config.CustomInstrumentationConfigProto;
 import org.glowroot.common.config.GaugeConfig;
 import org.glowroot.common.config.ImmutableAlertConfig;
@@ -68,8 +69,7 @@ import org.glowroot.common2.config.WebConfig;
 import org.glowroot.common2.repo.ConfigRepository;
 import org.glowroot.common2.repo.ConfigValidation;
 import org.glowroot.common2.repo.util.LazySecretKey;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
+import org.glowroot.engine.config.InstrumentationDescriptor;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig;
 
 import static com.google.common.base.Preconditions.checkState;

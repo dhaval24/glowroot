@@ -31,11 +31,11 @@ import org.objectweb.asm.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glowroot.engine.config.AdviceConfig;
+import org.glowroot.engine.config.AdviceConfig.AlreadyInTransactionBehavior;
+import org.glowroot.engine.config.AdviceConfig.CaptureKind;
 import org.glowroot.engine.weaving.ClassLoaders.LazyDefinedClass;
 import org.glowroot.instrumentation.api.ThreadContext.Priority;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig.AlreadyInTransactionBehavior;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig.CaptureKind;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.objectweb.asm.Opcodes.ACC_FINAL;
@@ -72,18 +72,17 @@ class AdviceGenerator {
 
     private static final AtomicInteger counter = new AtomicInteger();
 
-    private final CustomInstrumentationConfig config;
+    private final AdviceConfig config;
     private final @Nullable String instrumentationId;
     private final int priorityForSetters;
     private final String adviceInternalName;
     private final @Nullable String methodMetaInternalName;
     private final int uniqueNum;
 
-    static ImmutableMap<Advice, LazyDefinedClass> createAdvisors(
-            List<CustomInstrumentationConfig> configs, @Nullable String instrumentationId,
-            boolean userInstrumentation, boolean reweavable) {
+    static ImmutableMap<Advice, LazyDefinedClass> createAdvisors(List<AdviceConfig> configs,
+            @Nullable String instrumentationId, boolean userInstrumentation, boolean reweavable) {
         Map<Advice, LazyDefinedClass> advisors = Maps.newHashMap();
-        for (CustomInstrumentationConfig config : configs) {
+        for (AdviceConfig config : configs) {
             if (!config.validationErrors().isEmpty()) {
                 continue;
             }
@@ -100,7 +99,7 @@ class AdviceGenerator {
         return ImmutableMap.copyOf(advisors);
     }
 
-    private AdviceGenerator(CustomInstrumentationConfig config, @Nullable String instrumentationId,
+    private AdviceGenerator(AdviceConfig config, @Nullable String instrumentationId,
             boolean userInstrumentation) {
         this.config = config;
         this.instrumentationId = instrumentationId;
@@ -631,7 +630,7 @@ class AdviceGenerator {
     }
 
     @RequiresNonNull("methodMetaInternalName")
-    private LazyDefinedClass generateMethodMetaClass(CustomInstrumentationConfig config) {
+    private LazyDefinedClass generateMethodMetaClass(AdviceConfig config) {
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES);
         cw.visit(V1_5, ACC_PUBLIC + ACC_SUPER, methodMetaInternalName, null, "java/lang/Object",
                 null);

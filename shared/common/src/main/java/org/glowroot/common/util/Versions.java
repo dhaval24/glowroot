@@ -22,8 +22,6 @@ import com.google.protobuf.AbstractMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.glowroot.instrumentation.config.ObjectMappers;
-
 import static com.google.common.base.Charsets.UTF_8;
 
 public class Versions {

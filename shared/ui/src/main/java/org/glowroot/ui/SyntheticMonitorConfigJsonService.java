@@ -33,6 +33,7 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.immutables.value.Value;
 
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common.util.Versions;
 import org.glowroot.common2.config.MoreConfigDefaults;
 import org.glowroot.common2.repo.ConfigRepository;
@@ -42,7 +43,6 @@ import org.glowroot.common2.repo.util.Encryption;
 import org.glowroot.common2.repo.util.IdGenerator;
 import org.glowroot.common2.repo.util.LazySecretKey;
 import org.glowroot.common2.repo.util.LazySecretKey.SymmetricEncryptionKeyMissingException;
-import org.glowroot.instrumentation.config.ObjectMappers;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.SyntheticMonitorConfig;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.SyntheticMonitorConfig.SyntheticMonitorKind;
 

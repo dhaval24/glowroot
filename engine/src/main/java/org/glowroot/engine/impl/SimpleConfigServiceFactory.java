@@ -27,6 +27,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glowroot.engine.config.InstrumentationDescriptor;
+import org.glowroot.engine.config.PropertyDescriptor;
 import org.glowroot.engine.impl.InstrumentationServiceImpl.ConfigServiceFactory;
 import org.glowroot.instrumentation.api.config.BooleanProperty;
 import org.glowroot.instrumentation.api.config.ConfigListener;
@@ -35,8 +37,6 @@ import org.glowroot.instrumentation.api.config.DoubleProperty;
 import org.glowroot.instrumentation.api.config.ListProperty;
 import org.glowroot.instrumentation.api.config.StringProperty;
 import org.glowroot.instrumentation.api.util.ImmutableMap;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
-import org.glowroot.instrumentation.config.PropertyDescriptor;
 
 public class SimpleConfigServiceFactory implements ConfigServiceFactory {
 

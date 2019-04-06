@@ -35,13 +35,13 @@ import org.objectweb.asm.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glowroot.engine.config.InstrumentationDescriptor;
 import org.glowroot.engine.weaving.InstrumentationDetail.MixinClass;
 import org.glowroot.engine.weaving.InstrumentationDetail.PointcutClass;
 import org.glowroot.engine.weaving.InstrumentationDetail.PointcutMethod;
 import org.glowroot.instrumentation.api.weaving.MethodModifier;
 import org.glowroot.instrumentation.api.weaving.Mixin;
 import org.glowroot.instrumentation.api.weaving.Pointcut;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.objectweb.asm.Opcodes.ASM7;

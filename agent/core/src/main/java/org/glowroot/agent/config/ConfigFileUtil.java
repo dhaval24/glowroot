@@ -35,7 +35,7 @@ import com.google.common.primitives.Ints;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.glowroot.instrumentation.config.ObjectMappers;
+import org.glowroot.common.util.ObjectMappers;
 
 import static com.google.common.base.Charsets.UTF_8;
 

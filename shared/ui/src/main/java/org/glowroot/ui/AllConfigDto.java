@@ -26,24 +26,24 @@ import org.immutables.value.Value;
 
 import org.glowroot.common.config.AdvancedConfig;
 import org.glowroot.common.config.AlertConfig;
+import org.glowroot.common.config.CustomInstrumentationConfig;
 import org.glowroot.common.config.CustomInstrumentationConfigProto;
 import org.glowroot.common.config.GaugeConfig;
 import org.glowroot.common.config.ImmutableAdvancedConfig;
 import org.glowroot.common.config.ImmutableAlertConfig;
+import org.glowroot.common.config.ImmutableCustomInstrumentationConfig;
 import org.glowroot.common.config.ImmutableGaugeConfig;
 import org.glowroot.common.config.ImmutableJvmConfig;
 import org.glowroot.common.config.ImmutableSyntheticMonitorConfig;
 import org.glowroot.common.config.ImmutableTransactionConfig;
 import org.glowroot.common.config.ImmutableUiDefaultsConfig;
 import org.glowroot.common.config.JvmConfig;
+import org.glowroot.common.config.PropertyValue;
 import org.glowroot.common.config.PropertyValueProto;
 import org.glowroot.common.config.SyntheticMonitorConfig;
 import org.glowroot.common.config.TransactionConfig;
 import org.glowroot.common.config.UiDefaultsConfig;
 import org.glowroot.common.util.Versions;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.ImmutableCustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.PropertyValue;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.InstrumentationProperty;
 

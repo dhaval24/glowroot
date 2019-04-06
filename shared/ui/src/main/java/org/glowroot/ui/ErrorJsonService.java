@@ -41,6 +41,7 @@ import org.glowroot.common.model.Result;
 import org.glowroot.common.model.TransactionNameErrorSummaryCollector.ErrorSummarySortOrder;
 import org.glowroot.common.model.TransactionNameErrorSummaryCollector.TransactionNameErrorSummary;
 import org.glowroot.common.util.Clock;
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common.util.Styles;
 import org.glowroot.common2.repo.ConfigRepository;
 import org.glowroot.common2.repo.ConfigRepository.RollupConfig;
@@ -54,7 +55,6 @@ import org.glowroot.common2.repo.TraceRepository.ErrorMessageResult;
 import org.glowroot.common2.repo.TraceRepository.TraceQuery;
 import org.glowroot.common2.repo.util.RollupLevelService;
 import org.glowroot.common2.repo.util.RollupLevelService.DataKind;
-import org.glowroot.instrumentation.config.ObjectMappers;
 
 @JsonService
 class ErrorJsonService {

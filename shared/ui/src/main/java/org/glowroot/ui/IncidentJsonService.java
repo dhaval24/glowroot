@@ -27,12 +27,12 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.immutables.value.Value;
 
 import org.glowroot.common.util.Clock;
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common2.repo.AgentDisplayRepository;
 import org.glowroot.common2.repo.ConfigRepository;
 import org.glowroot.common2.repo.IncidentRepository;
 import org.glowroot.common2.repo.IncidentRepository.OpenIncident;
 import org.glowroot.common2.repo.IncidentRepository.ResolvedIncident;
-import org.glowroot.instrumentation.config.ObjectMappers;
 import org.glowroot.common2.repo.SyntheticResultRepository;
 import org.glowroot.ui.HttpSessionManager.Authentication;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.AlertConfig.AlertCondition;

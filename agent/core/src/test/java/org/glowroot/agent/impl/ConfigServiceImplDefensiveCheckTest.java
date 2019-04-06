@@ -20,7 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.glowroot.agent.config.ConfigService;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
+import org.glowroot.engine.config.InstrumentationDescriptor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;

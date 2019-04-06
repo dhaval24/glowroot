@@ -29,10 +29,10 @@ import org.objectweb.asm.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.glowroot.instrumentation.config.ImmutableCustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig.AlreadyInTransactionBehavior;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig.CaptureKind;
+import org.glowroot.engine.config.AdviceConfig;
+import org.glowroot.engine.config.AdviceConfig.AlreadyInTransactionBehavior;
+import org.glowroot.engine.config.AdviceConfig.CaptureKind;
+import org.glowroot.engine.config.ImmutableAdviceConfig;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.objectweb.asm.Opcodes.ASM7;
@@ -42,7 +42,7 @@ class InstrumentationSeekerClassVisitor extends ClassVisitor {
     private static final Logger logger =
             LoggerFactory.getLogger(InstrumentationSeekerClassVisitor.class);
 
-    private final List<CustomInstrumentationConfig> configs = Lists.newArrayList();
+    private final List<AdviceConfig> configs = Lists.newArrayList();
 
     private @MonotonicNonNull String owner;
 
@@ -63,7 +63,7 @@ class InstrumentationSeekerClassVisitor extends ClassVisitor {
         return new InstrumentationAnnotationMethodVisitor(name, descriptor);
     }
 
-    List<CustomInstrumentationConfig> getConfigs() {
+    List<AdviceConfig> getConfigs() {
         return configs;
     }
 
@@ -195,13 +195,12 @@ class InstrumentationSeekerClassVisitor extends ClassVisitor {
         }
 
         @RequiresNonNull("owner")
-        private ImmutableCustomInstrumentationConfig.Builder startBuilder() {
+        private ImmutableAdviceConfig.Builder startBuilder() {
             Type type = Type.getObjectType(owner);
             Type[] argumentTypes = Type.getArgumentTypes(descriptor);
-            ImmutableCustomInstrumentationConfig.Builder builder =
-                    ImmutableCustomInstrumentationConfig.builder()
-                            .className(type.getClassName())
-                            .methodName(methodName);
+            ImmutableAdviceConfig.Builder builder = ImmutableAdviceConfig.builder()
+                    .className(type.getClassName())
+                    .methodName(methodName);
             for (Type argumentType : argumentTypes) {
                 builder.addMethodParameterTypes(argumentType.getClassName());
             }

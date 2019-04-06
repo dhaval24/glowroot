@@ -55,12 +55,12 @@ import org.glowroot.common.live.LiveJvmService.UnavailableDueToRunningInJ9JvmExc
 import org.glowroot.common.live.LiveJvmService.UnavailableDueToRunningInJreException;
 import org.glowroot.common.util.Masking;
 import org.glowroot.common.util.NotAvailableAware;
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common.util.Version;
 import org.glowroot.common2.repo.ConfigRepository;
 import org.glowroot.common2.repo.ConfigRepository.AgentConfigNotFoundException;
 import org.glowroot.common2.repo.EnvironmentRepository;
 import org.glowroot.common2.repo.util.UsedByJsonSerialization;
-import org.glowroot.instrumentation.config.ObjectMappers;
 import org.glowroot.wire.api.model.CollectorServiceOuterClass.InitMessage.Environment;
 import org.glowroot.wire.api.model.CollectorServiceOuterClass.InitMessage.Environment.HostInfo;
 import org.glowroot.wire.api.model.CollectorServiceOuterClass.InitMessage.Environment.JavaInfo;

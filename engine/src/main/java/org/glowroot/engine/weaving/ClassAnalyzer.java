@@ -48,13 +48,13 @@ import org.objectweb.asm.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glowroot.engine.config.AdviceConfig;
+import org.glowroot.engine.config.AdviceConfig.CaptureKind;
+import org.glowroot.engine.config.ImmutableAdviceConfig;
 import org.glowroot.engine.weaving.AnalyzedWorld.ParseContext;
 import org.glowroot.engine.weaving.ClassLoaders.LazyDefinedClass;
 import org.glowroot.engine.weaving.ThinClassVisitor.ThinClass;
 import org.glowroot.engine.weaving.ThinClassVisitor.ThinMethod;
-import org.glowroot.instrumentation.config.ImmutableCustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig.CaptureKind;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.objectweb.asm.Opcodes.ACC_BRIDGE;
@@ -648,7 +648,7 @@ class ClassAnalyzer {
             addToInterfaceNamesToInstrument(ejbRemoteInterface, superInterfaceNames,
                     interfaceNamesToInstrument, ejbRemoteInterface);
         }
-        List<CustomInstrumentationConfig> configs = Lists.newArrayList();
+        List<AdviceConfig> configs = Lists.newArrayList();
         for (Map.Entry<String, String> entry : interfaceNamesToInstrument.entrySet()) {
             String shortClassName = entry.getValue();
             int index = shortClassName.lastIndexOf('.');
@@ -659,7 +659,7 @@ class ClassAnalyzer {
             if (index != -1) {
                 shortClassName = shortClassName.substring(index + 1);
             }
-            configs.add(ImmutableCustomInstrumentationConfig.builder()
+            configs.add(ImmutableAdviceConfig.builder()
                     .className(entry.getKey())
                     .subTypeRestriction(ClassNames.fromInternalName(thinClass.name()))
                     .methodName("*")

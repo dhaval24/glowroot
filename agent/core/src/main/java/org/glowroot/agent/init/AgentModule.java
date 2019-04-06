@@ -45,6 +45,7 @@ import org.glowroot.common.util.Clock;
 import org.glowroot.common.util.OnlyUsedByTests;
 import org.glowroot.common.util.ScheduledRunnable;
 import org.glowroot.engine.bytecode.api.ThreadContextThreadLocal;
+import org.glowroot.engine.config.InstrumentationDescriptor;
 import org.glowroot.engine.impl.InstrumentationServiceImpl.ConfigServiceFactory;
 import org.glowroot.engine.impl.TimerNameCache;
 import org.glowroot.engine.init.EngineModule;
@@ -54,7 +55,6 @@ import org.glowroot.engine.weaving.BytecodeServiceImpl.OnEnteringMain;
 import org.glowroot.engine.weaving.IsolatedWeavingClassLoader;
 import org.glowroot.engine.weaving.PreloadSomeSuperTypesCache;
 import org.glowroot.engine.weaving.Weaver;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -120,7 +120,7 @@ public class AgentModule {
             }
         };
         engineModule = new EngineModule(instrumentation, tmpDir, ticker,
-                configService.getCustomInstrumentationConfigs(), instrumentationDescriptors,
+                instrumentationDescriptors, configService.getCustomInstrumentationConfigs(),
                 threadContextThreadLocal, timerNameCache,
                 new GlowrootServiceImpl(transactionRegistry), configServiceFactory,
                 transactionRegistry, preCheckClassFileTransformer, allPreCheckLoadedClasses,

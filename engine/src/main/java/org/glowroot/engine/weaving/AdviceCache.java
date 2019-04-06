@@ -36,14 +36,14 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glowroot.engine.config.AdviceConfig;
+import org.glowroot.engine.config.InstrumentationDescriptor;
 import org.glowroot.engine.weaving.ClassLoaders.LazyDefinedClass;
 import org.glowroot.engine.weaving.InstrumentationDetail.MixinClass;
 import org.glowroot.engine.weaving.InstrumentationDetail.PointcutClass;
 import org.glowroot.engine.weaving.InstrumentationDetail.ShimClass;
 import org.glowroot.engine.weaving.Reweaving.PointcutClassName;
 import org.glowroot.instrumentation.api.weaving.Shim;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -59,13 +59,13 @@ public class AdviceCache {
     private final @Nullable Instrumentation instrumentation;
     private final File tmpDir;
 
+    private volatile ImmutableSet<AdviceConfig> reweavableAdviceConfigs;
     private volatile ImmutableList<Advice> reweavableAdvisors;
-    private volatile ImmutableSet<CustomInstrumentationConfig> reweavableConfigs;
 
     private volatile ImmutableList<Advice> allAdvisors;
 
     public AdviceCache(List<InstrumentationDescriptor> instrumentationDescriptors,
-            List<CustomInstrumentationConfig> reweavableConfigs,
+            List<AdviceConfig> reweavableAdviceConfigs,
             @Nullable Instrumentation instrumentation, File tmpDir) throws Exception {
 
         List<Advice> nonReweavableAdvisors = Lists.newArrayList();
@@ -80,9 +80,9 @@ public class AdviceCache {
             mixinTypes.addAll(getMixinTypes(detail.mixinClasses()));
             shimTypes.addAll(getShimTypes(detail.shimClasses()));
 
-            List<CustomInstrumentationConfig> configs =
-                    descriptor.instrumentationConfigs();
-            for (CustomInstrumentationConfig config : configs) {
+            List<AdviceConfig> configs =
+                    descriptor.adviceConfigs();
+            for (AdviceConfig config : configs) {
                 config.logValidationErrorsIfAny();
             }
             lazyAdvisors.putAll(AdviceGenerator.createAdvisors(configs, descriptor.id(),
@@ -111,10 +111,9 @@ public class AdviceCache {
         this.mixinTypes = ImmutableList.copyOf(mixinTypes);
         this.instrumentation = instrumentation;
         this.tmpDir = tmpDir;
+        this.reweavableAdviceConfigs = ImmutableSet.copyOf(reweavableAdviceConfigs);
         reweavableAdvisors =
-                createReweavableAdvisors(reweavableConfigs, instrumentation,
-                        tmpDir, true);
-        this.reweavableConfigs = ImmutableSet.copyOf(reweavableConfigs);
+                createReweavableAdvisors(reweavableAdviceConfigs, instrumentation, tmpDir, true);
         allAdvisors = ImmutableList
                 .copyOf(Iterables.concat(nonReweavableAdvisors, reweavableAdvisors));
     }
@@ -158,18 +157,18 @@ public class AdviceCache {
                 checkNotNull(instrumentation));
     }
 
-    public void updateAdvisors(List<CustomInstrumentationConfig> reweavableConfigs)
+    public void updateAdvisors(List<AdviceConfig> reweavableConfigs)
             throws Exception {
         reweavableAdvisors =
                 createReweavableAdvisors(reweavableConfigs, instrumentation, tmpDir, false);
-        this.reweavableConfigs = ImmutableSet.copyOf(reweavableConfigs);
+        this.reweavableAdviceConfigs = ImmutableSet.copyOf(reweavableConfigs);
         allAdvisors = ImmutableList
                 .copyOf(Iterables.concat(nonReweavableAdvisors, reweavableAdvisors));
     }
 
-    public boolean isOutOfSync(List<CustomInstrumentationConfig> customInstrumentationConfigs) {
-        return !this.reweavableConfigs
-                .equals(ImmutableSet.copyOf(customInstrumentationConfigs));
+    public boolean isOutOfSync(List<AdviceConfig> reweavableAdviceConfigs) {
+        return !this.reweavableAdviceConfigs
+                .equals(ImmutableSet.copyOf(reweavableAdviceConfigs));
     }
 
     private static List<Advice> getAdvisors(List<PointcutClass> adviceClasses) {
@@ -207,11 +206,10 @@ public class AdviceCache {
     }
 
     private static ImmutableList<Advice> createReweavableAdvisors(
-            List<CustomInstrumentationConfig> reweavableConfigs,
-            @Nullable Instrumentation instrumentation, File tmpDir, boolean cleanTmpDir)
-            throws Exception {
+            List<AdviceConfig> reweavableAdviceConfigs, @Nullable Instrumentation instrumentation,
+            File tmpDir, boolean cleanTmpDir) throws Exception {
         ImmutableMap<Advice, LazyDefinedClass> advisors =
-                AdviceGenerator.createAdvisors(reweavableConfigs, null, false, true);
+                AdviceGenerator.createAdvisors(reweavableAdviceConfigs, null, false, true);
         if (instrumentation == null) {
             // instrumentation is null when debugging with LocalContainer
             ClassLoader isolatedWeavingClassLoader =

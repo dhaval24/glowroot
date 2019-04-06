@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.glowroot.instrumentation.config;
+package org.glowroot.engine.config;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import org.immutables.value.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.glowroot.instrumentation.config.PropertyValue.PropertyType;
+import org.glowroot.engine.config.PropertyValue.PropertyType;
 
 @JsonSerialize
 @Value.Immutable

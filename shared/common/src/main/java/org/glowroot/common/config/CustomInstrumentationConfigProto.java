@@ -15,11 +15,9 @@
  */
 package org.glowroot.common.config;
 
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig.AlreadyInTransactionBehavior;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig.CaptureKind;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig.MethodModifier;
-import org.glowroot.instrumentation.config.ImmutableCustomInstrumentationConfig;
+import org.glowroot.common.config.CustomInstrumentationConfig.AlreadyInTransactionBehavior;
+import org.glowroot.common.config.CustomInstrumentationConfig.CaptureKind;
+import org.glowroot.common.config.CustomInstrumentationConfig.MethodModifier;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig;
 import org.glowroot.wire.api.model.Proto.OptionalInt32;
 
@@ -74,8 +72,6 @@ public class CustomInstrumentationConfigProto {
         }
         return builder.setTraceEntryCaptureSelfNested(config.traceEntryCaptureSelfNested())
                 .setTimerName(config.timerName())
-                .setEnabledProperty(config.enabledProperty())
-                .setTraceEntryEnabledProperty(config.traceEntryEnabledProperty())
                 .build();
     }
 
@@ -124,8 +120,6 @@ public class CustomInstrumentationConfigProto {
         }
         return builder.traceEntryCaptureSelfNested(config.getTraceEntryCaptureSelfNested())
                 .timerName(config.getTimerName())
-                .enabledProperty(config.getEnabledProperty())
-                .traceEntryEnabledProperty(config.getTraceEntryEnabledProperty())
                 .build();
     }
 

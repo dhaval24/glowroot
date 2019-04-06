@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.glowroot.instrumentation.config;
+package org.glowroot.common.util;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

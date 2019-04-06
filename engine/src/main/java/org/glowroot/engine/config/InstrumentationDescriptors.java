@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.glowroot.instrumentation.config;
+package org.glowroot.engine.config;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,10 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.collect.ImmutableList;
 
-import org.glowroot.instrumentation.config.ImmutableCustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.ImmutableInstrumentationDescriptor;
-import org.glowroot.instrumentation.config.ImmutablePropertyDescriptor;
-
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class InstrumentationDescriptors {
@@ -36,8 +32,7 @@ public class InstrumentationDescriptors {
 
     static {
         SimpleModule module = new SimpleModule();
-        module.addAbstractTypeMapping(CustomInstrumentationConfig.class,
-                ImmutableCustomInstrumentationConfig.class);
+        module.addAbstractTypeMapping(AdviceConfig.class, ImmutableAdviceConfig.class);
         module.addAbstractTypeMapping(PropertyDescriptor.class, ImmutablePropertyDescriptor.class);
         mapper.registerModule(module);
     }

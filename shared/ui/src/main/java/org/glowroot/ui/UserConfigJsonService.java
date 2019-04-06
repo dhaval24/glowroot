@@ -29,15 +29,15 @@ import org.immutables.value.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common2.config.ImmutableUserConfig;
 import org.glowroot.common2.config.RoleConfig;
 import org.glowroot.common2.config.UserConfig;
 import org.glowroot.common2.repo.ConfigRepository;
-import org.glowroot.common2.repo.PasswordHash;
 import org.glowroot.common2.repo.ConfigRepository.CannotDeleteLastUserException;
 import org.glowroot.common2.repo.ConfigRepository.DuplicateUsernameException;
 import org.glowroot.common2.repo.ConfigRepository.UserNotFoundException;
-import org.glowroot.instrumentation.config.ObjectMappers;
+import org.glowroot.common2.repo.PasswordHash;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static io.netty.handler.codec.http.HttpResponseStatus.CONFLICT;

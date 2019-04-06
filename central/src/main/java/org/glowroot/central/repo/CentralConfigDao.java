@@ -33,9 +33,9 @@ import org.glowroot.central.util.Cache;
 import org.glowroot.central.util.Cache.CacheLoader;
 import org.glowroot.central.util.ClusterManager;
 import org.glowroot.central.util.Session;
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common.util.Versions;
 import org.glowroot.common2.repo.ConfigRepository.OptimisticLockException;
-import org.glowroot.instrumentation.config.ObjectMappers;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

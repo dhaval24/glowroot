@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.glowroot.common.config;
+package org.glowroot.engine.config;
 
 import java.util.List;
 
 import org.junit.Test;
 
-import org.glowroot.common.config.CustomInstrumentationConfig.CaptureKind;
+import org.glowroot.engine.config.AdviceConfig.CaptureKind;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CustomInstrumentationConfigValidationTest {
+public class AdviceConfigValidationTest {
 
-    private final CustomInstrumentationConfig baseConfig =
-            ImmutableCustomInstrumentationConfig.builder()
+    private final AdviceConfig baseConfig =
+            ImmutableAdviceConfig.builder()
                     .className("a")
                     .methodName("n")
                     .addMethodParameterTypes("java.lang.String")
@@ -38,6 +38,8 @@ public class CustomInstrumentationConfigValidationTest {
                     .transactionType("")
                     .transactionNameTemplate("")
                     .transactionUserTemplate("")
+                    .enabledProperty("")
+                    .traceEntryEnabledProperty("")
                     .build();
 
     @Test
@@ -51,8 +53,8 @@ public class CustomInstrumentationConfigValidationTest {
     @Test
     public void testInvalidClassNameAndMethodName() {
         // given
-        CustomInstrumentationConfig config = ImmutableCustomInstrumentationConfig.builder()
-                .copyFrom(baseConfig)
+        AdviceConfig config = ImmutableAdviceConfig.builder()
+                .from(baseConfig)
                 .className("")
                 .methodName("")
                 .build();
@@ -67,8 +69,8 @@ public class CustomInstrumentationConfigValidationTest {
     @Test
     public void testInvalidEmptyTimerName() {
         // given
-        CustomInstrumentationConfig config = ImmutableCustomInstrumentationConfig.builder()
-                .copyFrom(baseConfig)
+        AdviceConfig config = ImmutableAdviceConfig.builder()
+                .from(baseConfig)
                 .timerName("")
                 .build();
         // when
@@ -80,8 +82,8 @@ public class CustomInstrumentationConfigValidationTest {
     @Test
     public void testInvalidCharactersInTimerName() {
         // given
-        CustomInstrumentationConfig config = ImmutableCustomInstrumentationConfig.builder()
-                .copyFrom(baseConfig)
+        AdviceConfig config = ImmutableAdviceConfig.builder()
+                .from(baseConfig)
                 .timerName("a_b")
                 .build();
         // when
@@ -93,8 +95,8 @@ public class CustomInstrumentationConfigValidationTest {
     @Test
     public void testValidEmptyTimerName() {
         // given
-        CustomInstrumentationConfig config = ImmutableCustomInstrumentationConfig.builder()
-                .copyFrom(baseConfig)
+        AdviceConfig config = ImmutableAdviceConfig.builder()
+                .from(baseConfig)
                 .captureKind(CaptureKind.OTHER)
                 .timerName("")
                 .build();
@@ -107,8 +109,8 @@ public class CustomInstrumentationConfigValidationTest {
     @Test
     public void testInvalidTraceEntry() {
         // given
-        CustomInstrumentationConfig config = ImmutableCustomInstrumentationConfig.builder()
-                .copyFrom(baseConfig)
+        AdviceConfig config = ImmutableAdviceConfig.builder()
+                .from(baseConfig)
                 .captureKind(CaptureKind.TRACE_ENTRY)
                 .build();
         // when
@@ -120,8 +122,8 @@ public class CustomInstrumentationConfigValidationTest {
     @Test
     public void testInvalidTransaction() {
         // given
-        CustomInstrumentationConfig config = ImmutableCustomInstrumentationConfig.builder()
-                .copyFrom(baseConfig)
+        AdviceConfig config = ImmutableAdviceConfig.builder()
+                .from(baseConfig)
                 .captureKind(CaptureKind.TRANSACTION)
                 .build();
         // when

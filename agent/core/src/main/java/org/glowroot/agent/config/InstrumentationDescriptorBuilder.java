@@ -31,9 +31,9 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.glowroot.instrumentation.config.ImmutableInstrumentationDescriptor;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
-import org.glowroot.instrumentation.config.InstrumentationDescriptors;
+import org.glowroot.engine.config.ImmutableInstrumentationDescriptor;
+import org.glowroot.engine.config.InstrumentationDescriptor;
+import org.glowroot.engine.config.InstrumentationDescriptors;
 
 import static com.google.common.base.Charsets.UTF_8;
 

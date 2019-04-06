@@ -37,12 +37,12 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
 import org.glowroot.agent.config.ConfigService;
 import org.glowroot.agent.live.ClasspathCache.UiAnalyzedMethod;
+import org.glowroot.common.config.CustomInstrumentationConfig;
 import org.glowroot.common.live.LiveWeavingService;
 import org.glowroot.engine.weaving.AdviceCache;
 import org.glowroot.engine.weaving.AnalyzedWorld;
 import org.glowroot.engine.weaving.Reweaving;
 import org.glowroot.engine.weaving.Reweaving.PointcutClassName;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig;
 import org.glowroot.wire.api.model.DownstreamServiceOuterClass.GlobalMeta;
 import org.glowroot.wire.api.model.DownstreamServiceOuterClass.MethodSignature;
 

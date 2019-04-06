@@ -56,13 +56,13 @@ import org.glowroot.common.model.TransactionNameSummaryCollector.SummarySortOrde
 import org.glowroot.common.model.TransactionNameSummaryCollector.TransactionNameSummary;
 import org.glowroot.common.util.CaptureTimes;
 import org.glowroot.common.util.Clock;
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common2.repo.AggregateRepository;
 import org.glowroot.common2.repo.ConfigRepository;
 import org.glowroot.common2.repo.ConfigRepository.RollupConfig;
 import org.glowroot.common2.repo.Utils;
 import org.glowroot.common2.repo.util.RollupLevelService;
 import org.glowroot.common2.repo.util.RollupLevelService.DataKind;
-import org.glowroot.instrumentation.config.ObjectMappers;
 import org.glowroot.ui.AggregateMerging.MergedAggregate;
 import org.glowroot.ui.AggregateMerging.PercentileValue;
 import org.glowroot.wire.api.model.AggregateOuterClass.Aggregate;

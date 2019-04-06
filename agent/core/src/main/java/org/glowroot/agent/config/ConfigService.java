@@ -34,10 +34,12 @@ import org.slf4j.LoggerFactory;
 
 import org.glowroot.common.config.AdvancedConfig;
 import org.glowroot.common.config.AlertConfig;
+import org.glowroot.common.config.CustomInstrumentationConfig;
 import org.glowroot.common.config.CustomInstrumentationConfigProto;
 import org.glowroot.common.config.GaugeConfig;
 import org.glowroot.common.config.ImmutableAdvancedConfig;
 import org.glowroot.common.config.ImmutableAlertConfig;
+import org.glowroot.common.config.ImmutableCustomInstrumentationConfig;
 import org.glowroot.common.config.ImmutableGaugeConfig;
 import org.glowroot.common.config.ImmutableJvmConfig;
 import org.glowroot.common.config.ImmutableMBeanAttribute;
@@ -49,14 +51,12 @@ import org.glowroot.common.config.SyntheticMonitorConfig;
 import org.glowroot.common.config.TransactionConfig;
 import org.glowroot.common.config.UiDefaultsConfig;
 import org.glowroot.common.util.OnlyUsedByTests;
+import org.glowroot.engine.config.InstrumentationDescriptor;
+import org.glowroot.engine.config.PropertyDescriptor;
+import org.glowroot.engine.config.PropertyValue;
+import org.glowroot.engine.config.PropertyValue.PropertyType;
 import org.glowroot.engine.util.JavaVersion;
 import org.glowroot.instrumentation.api.config.ConfigListener;
-import org.glowroot.instrumentation.config.CustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.ImmutableCustomInstrumentationConfig;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
-import org.glowroot.instrumentation.config.PropertyDescriptor;
-import org.glowroot.instrumentation.config.PropertyValue;
-import org.glowroot.instrumentation.config.PropertyValue.PropertyType;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig;
 
 public class ConfigService {

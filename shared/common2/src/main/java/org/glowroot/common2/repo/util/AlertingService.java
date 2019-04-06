@@ -48,6 +48,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.glowroot.common.util.Clock;
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common.util.Versions;
 import org.glowroot.common2.config.SlackConfig.SlackWebhook;
 import org.glowroot.common2.config.SmtpConfig;
@@ -62,7 +63,6 @@ import org.glowroot.common2.repo.IncidentRepository.OpenIncident;
 import org.glowroot.common2.repo.TraceRepository;
 import org.glowroot.common2.repo.Utils;
 import org.glowroot.common2.repo.util.HttpClient.TooManyRequestsHttpResponseException;
-import org.glowroot.instrumentation.config.ObjectMappers;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.AlertConfig;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.AlertConfig.AlertCondition;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.AlertConfig.AlertCondition.MetricCondition;

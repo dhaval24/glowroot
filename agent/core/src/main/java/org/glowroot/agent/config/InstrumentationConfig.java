@@ -28,11 +28,10 @@ import com.google.common.collect.Maps;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.immutables.value.Value;
 
-import org.glowroot.common.config.PropertyValueProto;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
-import org.glowroot.instrumentation.config.PropertyDescriptor;
-import org.glowroot.instrumentation.config.PropertyValue;
-import org.glowroot.instrumentation.config.PropertyValue.PropertyType;
+import org.glowroot.engine.config.InstrumentationDescriptor;
+import org.glowroot.engine.config.PropertyDescriptor;
+import org.glowroot.engine.config.PropertyValue;
+import org.glowroot.engine.config.PropertyValue.PropertyType;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.InstrumentationProperty;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.InstrumentationProperty.Value.ValCase;

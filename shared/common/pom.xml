@@ -19,11 +19,6 @@
   <dependencies>
     <dependency>
       <groupId>org.glowroot</groupId>
-      <artifactId>glowroot-instrumentation-config</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.glowroot</groupId>
       <artifactId>glowroot-shared-wire-api</artifactId>
       <version>${project.version}</version>
     </dependency>

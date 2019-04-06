@@ -38,8 +38,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common.util.Traverser;
-import org.glowroot.instrumentation.config.ObjectMappers;
 import org.glowroot.wire.api.model.ProfileOuterClass.Profile;
 
 public class MutableProfile {

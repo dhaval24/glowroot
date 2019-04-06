@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.glowroot.instrumentation.config;
+package org.glowroot.common.config;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,8 +30,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.collect.Lists;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import org.glowroot.instrumentation.config.PropertyValue.PropertyValueDeserializer;
-import org.glowroot.instrumentation.config.PropertyValue.PropertyValueSerializer;
+import org.glowroot.common.config.PropertyValue.PropertyValueDeserializer;
+import org.glowroot.common.config.PropertyValue.PropertyValueSerializer;
 
 @JsonSerialize(using = PropertyValueSerializer.class)
 @JsonDeserialize(using = PropertyValueDeserializer.class)

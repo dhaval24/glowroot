@@ -33,6 +33,7 @@ import org.immutables.value.Value;
 
 import org.glowroot.common.util.CaptureTimes;
 import org.glowroot.common.util.Clock;
+import org.glowroot.common.util.ObjectMappers;
 import org.glowroot.common.util.Styles;
 import org.glowroot.common2.config.MoreConfigDefaults;
 import org.glowroot.common2.repo.ConfigRepository;
@@ -43,7 +44,6 @@ import org.glowroot.common2.repo.SyntheticResult.ErrorInterval;
 import org.glowroot.common2.repo.SyntheticResultRepository;
 import org.glowroot.common2.repo.util.RollupLevelService;
 import org.glowroot.common2.repo.util.RollupLevelService.DataKind;
-import org.glowroot.instrumentation.config.ObjectMappers;
 import org.glowroot.ui.ChartMarking.ChartMarkingInterval;
 import org.glowroot.ui.MultiErrorIntervalCollector.MultiErrorInterval;
 import org.glowroot.ui.MultiErrorIntervalMerger.GroupedMultiErrorInterval;

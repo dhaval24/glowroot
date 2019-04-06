@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.glowroot.common.config;
+package org.glowroot.agent.config;
 
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+import org.glowroot.engine.config.PropertyValue;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.InstrumentationProperty;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.InstrumentationProperty.StringList;
 

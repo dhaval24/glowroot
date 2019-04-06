@@ -41,9 +41,9 @@ import org.glowroot.agent.util.ThreadFactories;
 import org.glowroot.agent.util.Tickers;
 import org.glowroot.common.util.Clock;
 import org.glowroot.common.util.OnlyUsedByTests;
+import org.glowroot.engine.config.InstrumentationDescriptor;
 import org.glowroot.engine.init.PreCheckLoadedClasses.PreCheckClassFileTransformer;
 import org.glowroot.engine.weaving.BytecodeServiceImpl.OnEnteringMain;
-import org.glowroot.instrumentation.config.InstrumentationDescriptor;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.concurrent.TimeUnit.SECONDS;
