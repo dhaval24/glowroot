@@ -28,10 +28,11 @@ import com.google.common.collect.Maps;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.immutables.value.Value;
 
+import org.glowroot.common.config.PropertyValue;
+import org.glowroot.engine.config.DefaultValue;
+import org.glowroot.engine.config.DefaultValue.PropertyType;
 import org.glowroot.engine.config.InstrumentationDescriptor;
 import org.glowroot.engine.config.PropertyDescriptor;
-import org.glowroot.engine.config.PropertyValue;
-import org.glowroot.engine.config.PropertyValue.PropertyType;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.InstrumentationProperty;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig.InstrumentationProperty.Value.ValCase;
@@ -142,8 +143,8 @@ public abstract class InstrumentationConfig {
             PropertyDescriptor propertyDescriptor = getPropertyDescriptor(entry.getKey());
             InstrumentationProperty.Builder property = InstrumentationProperty.newBuilder()
                     .setName(entry.getKey())
-                    .setValue(PropertyValueProto.toProto(entry.getValue().value()))
-                    .setDefault(PropertyValueProto
+                    .setValue(entry.getValue().toProto())
+                    .setDefault(PropertyValue
                             .toProto(propertyDescriptor.getValidatedNonNullDefaultValue().value()))
                     .setLabel(propertyDescriptor.label())
                     .setCheckboxLabel(propertyDescriptor.checkboxLabel())
@@ -162,6 +163,10 @@ public abstract class InstrumentationConfig {
         throw new IllegalStateException("Could not find property descriptor: " + name);
     }
 
+    static PropertyValue toPropertyValue(DefaultValue defaultValue) {
+        return new PropertyValue(defaultValue.value());
+    }
+
     public static InstrumentationConfig create(InstrumentationDescriptor descriptor,
             List<InstrumentationProperty> newProperties) {
         ImmutableInstrumentationConfig.Builder builder = ImmutableInstrumentationConfig.builder()
@@ -176,14 +181,14 @@ public abstract class InstrumentationConfig {
                     remainingNewProperties.remove(propertyDescriptor.name());
             if (newProperty == null) {
                 propertyValues.put(propertyDescriptor.name(),
-                        propertyDescriptor.getValidatedNonNullDefaultValue());
+                        toPropertyValue(propertyDescriptor.getValidatedNonNullDefaultValue()));
             } else if (!isValidType(newProperty.getValue().getValCase(),
                     propertyDescriptor.type())) {
                 throw new IllegalStateException("Instrumentation property " + newProperty.getName()
                         + " has incorrect type: " + newProperty.getValue().getValCase());
             } else {
                 propertyValues.put(newProperty.getName(),
-                        PropertyValueProto.create(newProperty.getValue()));
+                        PropertyValue.create(newProperty.getValue()));
             }
         }
         if (remainingNewProperties.isEmpty()) {

@@ -35,7 +35,6 @@ import org.glowroot.agent.embedded.config.AdminConfigService;
 import org.glowroot.common.config.AdvancedConfig;
 import org.glowroot.common.config.AlertConfig;
 import org.glowroot.common.config.CustomInstrumentationConfig;
-import org.glowroot.common.config.CustomInstrumentationConfigProto;
 import org.glowroot.common.config.GaugeConfig;
 import org.glowroot.common.config.ImmutableAlertConfig;
 import org.glowroot.common.config.JvmConfig;
@@ -201,7 +200,7 @@ public class ConfigRepositoryImpl implements ConfigRepository {
             String agentId) {
         List<AgentConfig.CustomInstrumentationConfig> configs = Lists.newArrayList();
         for (CustomInstrumentationConfig config : configService.getCustomInstrumentationConfigs()) {
-            configs.add(CustomInstrumentationConfigProto.toProto(config));
+            configs.add(config.toProto());
         }
         return configs;
     }
@@ -210,8 +209,7 @@ public class ConfigRepositoryImpl implements ConfigRepository {
     public AgentConfig. /*@Nullable*/ CustomInstrumentationConfig getCustomInstrumentationConfig(
             String agentId, String version) {
         for (CustomInstrumentationConfig config : configService.getCustomInstrumentationConfigs()) {
-            AgentConfig.CustomInstrumentationConfig protoConfig =
-                    CustomInstrumentationConfigProto.toProto(config);
+            AgentConfig.CustomInstrumentationConfig protoConfig = config.toProto();
             if (Versions.getVersion(protoConfig).equals(version)) {
                 return protoConfig;
             }
@@ -571,7 +569,7 @@ public class ConfigRepositoryImpl implements ConfigRepository {
     @Override
     public void insertCustomInstrumentationConfig(String agentId,
             AgentConfig.CustomInstrumentationConfig protoConfig) throws Exception {
-        CustomInstrumentationConfig config = CustomInstrumentationConfigProto.create(protoConfig);
+        CustomInstrumentationConfig config = CustomInstrumentationConfig.create(protoConfig);
         synchronized (writeLock) {
             List<CustomInstrumentationConfig> configs =
                     Lists.newArrayList(configService.getCustomInstrumentationConfigs());
@@ -587,7 +585,7 @@ public class ConfigRepositoryImpl implements ConfigRepository {
     public void updateCustomInstrumentationConfig(String agentId,
             AgentConfig.CustomInstrumentationConfig protoConfig, String priorVersion)
             throws Exception {
-        CustomInstrumentationConfig config = CustomInstrumentationConfigProto.create(protoConfig);
+        CustomInstrumentationConfig config = CustomInstrumentationConfig.create(protoConfig);
         synchronized (writeLock) {
             List<CustomInstrumentationConfig> configs =
                     Lists.newArrayList(configService.getCustomInstrumentationConfigs());
@@ -595,8 +593,7 @@ public class ConfigRepositoryImpl implements ConfigRepository {
             for (ListIterator<CustomInstrumentationConfig> i = configs.listIterator(); i
                     .hasNext();) {
                 CustomInstrumentationConfig loopConfig = i.next();
-                String loopVersion =
-                        Versions.getVersion(CustomInstrumentationConfigProto.toProto(loopConfig));
+                String loopVersion = Versions.getVersion(loopConfig.toProto());
                 if (loopVersion.equals(priorVersion)) {
                     i.set(config);
                     found = true;
@@ -621,8 +618,7 @@ public class ConfigRepositoryImpl implements ConfigRepository {
             for (ListIterator<CustomInstrumentationConfig> i = configs.listIterator(); i
                     .hasNext();) {
                 CustomInstrumentationConfig loopConfig = i.next();
-                String loopVersion =
-                        Versions.getVersion(CustomInstrumentationConfigProto.toProto(loopConfig));
+                String loopVersion = Versions.getVersion(loopConfig.toProto());
                 if (remainingVersions.contains(loopVersion)) {
                     i.remove();
                     remainingVersions.remove(loopVersion);
@@ -641,8 +637,7 @@ public class ConfigRepositoryImpl implements ConfigRepository {
             List<AgentConfig.CustomInstrumentationConfig> protoConfigs) throws Exception {
         List<CustomInstrumentationConfig> configs = Lists.newArrayList();
         for (AgentConfig.CustomInstrumentationConfig protoConfig : protoConfigs) {
-            CustomInstrumentationConfig config =
-                    CustomInstrumentationConfigProto.create(protoConfig);
+            CustomInstrumentationConfig config = CustomInstrumentationConfig.create(protoConfig);
             configs.add(config);
         }
         synchronized (writeLock) {

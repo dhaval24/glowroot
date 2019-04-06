@@ -31,6 +31,9 @@ import org.immutables.value.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig;
+import org.glowroot.wire.api.model.Proto.OptionalInt32;
+
 @JsonSerialize
 @Value.Immutable
 public abstract class CustomInstrumentationConfig {
@@ -233,6 +236,134 @@ public abstract class CustomInstrumentationConfig {
             logger.error("invalid instrumentation config: {} - {}", Joiner.on(", ").join(errors),
                     this);
         }
+    }
+
+    public AgentConfig.CustomInstrumentationConfig toProto() {
+        AgentConfig.CustomInstrumentationConfig.Builder builder =
+                AgentConfig.CustomInstrumentationConfig.newBuilder()
+                        .setClassName(className())
+                        .setClassAnnotation(classAnnotation())
+                        .setSubTypeRestriction(subTypeRestriction())
+                        .setSuperTypeRestriction(superTypeRestriction())
+                        // pointcuts with methodDeclaringClassName are no longer supported in
+                        // 0.9.16, but included here to help with transitioning of old
+                        // instrumentation config
+                        .setMethodDeclaringClassName(methodDeclaringClassName())
+                        .setMethodName(methodName())
+                        .setMethodAnnotation(methodAnnotation())
+                        .addAllMethodParameterType(methodParameterTypes())
+                        .setMethodReturnType(methodReturnType());
+        for (MethodModifier methodModifier : methodModifiers()) {
+            builder.addMethodModifier(toProto(methodModifier));
+        }
+        builder.setNestingGroup(nestingGroup())
+                .setOrder(order())
+                .setCaptureKind(toProto(captureKind()))
+                .setTransactionType(transactionType())
+                .setTransactionNameTemplate(transactionNameTemplate())
+                .setTransactionUserTemplate(transactionUserTemplate())
+                .putAllTransactionAttributeTemplates(
+                        transactionAttributeTemplates());
+        Integer transactionSlowThresholdMillis = transactionSlowThresholdMillis();
+        if (transactionSlowThresholdMillis != null) {
+            builder.setTransactionSlowThresholdMillis(
+                    OptionalInt32.newBuilder().setValue(transactionSlowThresholdMillis));
+        }
+        AlreadyInTransactionBehavior alreadyInTransactionBehavior =
+                alreadyInTransactionBehaviorCorrected();
+        if (alreadyInTransactionBehavior != null) {
+            builder.setAlreadyInTransactionBehavior(toProto(alreadyInTransactionBehavior));
+        }
+        builder.setTransactionOuter(transactionOuter())
+                .setTraceEntryMessageTemplate(traceEntryMessageTemplate());
+        Integer traceEntryStackThresholdMillis = traceEntryStackThresholdMillis();
+        if (traceEntryStackThresholdMillis != null) {
+            builder.setTraceEntryStackThresholdMillis(
+                    OptionalInt32.newBuilder().setValue(traceEntryStackThresholdMillis));
+        }
+        return builder.setTraceEntryCaptureSelfNested(traceEntryCaptureSelfNested())
+                .setTimerName(timerName())
+                .build();
+    }
+
+    public static ImmutableCustomInstrumentationConfig create(
+            AgentConfig.CustomInstrumentationConfig config) {
+        @SuppressWarnings("deprecation")
+        ImmutableCustomInstrumentationConfig.Builder builder =
+                ImmutableCustomInstrumentationConfig.builder()
+                        .className(config.getClassName())
+                        .classAnnotation(config.getClassAnnotation())
+                        .subTypeRestriction(config.getSubTypeRestriction())
+                        .superTypeRestriction(config.getSuperTypeRestriction())
+                        // pointcuts with methodDeclaringClassName are no longer supported in
+                        // 0.9.16, but
+                        // included here to help with transitioning of old instrumentation config
+                        .methodDeclaringClassName(config.getMethodDeclaringClassName())
+                        .methodName(config.getMethodName())
+                        .methodAnnotation(config.getMethodAnnotation())
+                        .addAllMethodParameterTypes(config.getMethodParameterTypeList())
+                        .methodReturnType(config.getMethodReturnType());
+        for (AgentConfig.CustomInstrumentationConfig.MethodModifier methodModifier : config
+                .getMethodModifierList()) {
+            builder.addMethodModifiers(fromProto(methodModifier));
+        }
+        builder.nestingGroup(config.getNestingGroup())
+                .order(config.getOrder())
+                .captureKind(fromProto(config.getCaptureKind()))
+                .transactionType(config.getTransactionType())
+                .transactionNameTemplate(config.getTransactionNameTemplate())
+                .transactionUserTemplate(config.getTransactionUserTemplate())
+                .putAllTransactionAttributeTemplates(config.getTransactionAttributeTemplatesMap());
+        if (config.hasTransactionSlowThresholdMillis()) {
+            builder.transactionSlowThresholdMillis(
+                    config.getTransactionSlowThresholdMillis().getValue());
+        }
+        if (config
+                .getCaptureKind() == AgentConfig.CustomInstrumentationConfig.CaptureKind.TRANSACTION) {
+            builder.alreadyInTransactionBehavior(
+                    fromProto(config.getAlreadyInTransactionBehavior()));
+        }
+        builder.transactionOuter(config.getTransactionOuter())
+                .traceEntryMessageTemplate(config.getTraceEntryMessageTemplate());
+        if (config.hasTraceEntryStackThresholdMillis()) {
+            builder.traceEntryStackThresholdMillis(
+                    config.getTraceEntryStackThresholdMillis().getValue());
+        }
+        return builder.traceEntryCaptureSelfNested(config.getTraceEntryCaptureSelfNested())
+                .timerName(config.getTimerName())
+                .build();
+    }
+
+    private static AgentConfig.CustomInstrumentationConfig.MethodModifier toProto(
+            MethodModifier methodModifier) {
+        return AgentConfig.CustomInstrumentationConfig.MethodModifier
+                .valueOf(methodModifier.name());
+    }
+
+    private static AgentConfig.CustomInstrumentationConfig.CaptureKind toProto(
+            CaptureKind captureKind) {
+        return AgentConfig.CustomInstrumentationConfig.CaptureKind.valueOf(captureKind.name());
+    }
+
+    private static AgentConfig.CustomInstrumentationConfig.AlreadyInTransactionBehavior toProto(
+            AlreadyInTransactionBehavior alreadyInTransactionBehavior) {
+        return AgentConfig.CustomInstrumentationConfig.AlreadyInTransactionBehavior
+                .valueOf(alreadyInTransactionBehavior.name());
+    }
+
+    private static MethodModifier fromProto(
+            AgentConfig.CustomInstrumentationConfig.MethodModifier methodModifier) {
+        return MethodModifier.valueOf(methodModifier.name());
+    }
+
+    private static CaptureKind fromProto(
+            AgentConfig.CustomInstrumentationConfig.CaptureKind captureKind) {
+        return CaptureKind.valueOf(captureKind.name());
+    }
+
+    private static AlreadyInTransactionBehavior fromProto(
+            AgentConfig.CustomInstrumentationConfig.AlreadyInTransactionBehavior alreadyInTransactionBehavior) {
+        return AlreadyInTransactionBehavior.valueOf(alreadyInTransactionBehavior.name());
     }
 
     public enum MethodModifier {

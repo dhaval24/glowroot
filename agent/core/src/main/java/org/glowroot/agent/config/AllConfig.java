@@ -26,7 +26,6 @@ import org.immutables.value.Value;
 import org.glowroot.common.config.AdvancedConfig;
 import org.glowroot.common.config.AlertConfig;
 import org.glowroot.common.config.CustomInstrumentationConfig;
-import org.glowroot.common.config.CustomInstrumentationConfigProto;
 import org.glowroot.common.config.GaugeConfig;
 import org.glowroot.common.config.JvmConfig;
 import org.glowroot.common.config.SyntheticMonitorConfig;
@@ -83,7 +82,7 @@ public abstract class AllConfig {
         }
         for (AgentConfig.CustomInstrumentationConfig config : agentConfig
                 .getCustomInstrumentationConfigList()) {
-            builder.addCustomInstrumentation(CustomInstrumentationConfigProto.create(config));
+            builder.addCustomInstrumentation(CustomInstrumentationConfig.create(config));
         }
         return builder.build();
     }

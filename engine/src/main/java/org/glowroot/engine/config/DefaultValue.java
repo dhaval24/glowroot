@@ -25,11 +25,12 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public class PropertyValue {
+public class DefaultValue {
 
     // can be boolean, @Nullable Double or @NonNull String
     private final @Nullable Object value;
-    public PropertyValue(@Nullable Object value) {
+
+    public DefaultValue(@Nullable Object value) {
         this.value = value;
     }
 
@@ -41,32 +42,32 @@ public class PropertyValue {
         STRING, BOOLEAN, DOUBLE, LIST
     }
 
-    public static class PropertyValueTypeAdapter extends TypeAdapter<PropertyValue> {
+    public static class PropertyValueTypeAdapter extends TypeAdapter<DefaultValue> {
 
         @Override
-        public PropertyValue read(JsonReader in) throws IOException {
+        public DefaultValue read(JsonReader in) throws IOException {
             JsonToken token = in.peek();
             switch (token) {
                 case BOOLEAN:
-                    return new PropertyValue(in.nextBoolean());
+                    return new DefaultValue(in.nextBoolean());
                 case NUMBER:
-                    return new PropertyValue(in.nextDouble());
+                    return new DefaultValue(in.nextDouble());
                 case STRING:
-                    return new PropertyValue(in.nextString());
+                    return new DefaultValue(in.nextString());
                 case BEGIN_ARRAY:
                     List<String> list = Lists.newArrayList();
                     while (in.peek() != JsonToken.END_ARRAY) {
                         list.add(in.nextString());
                     }
                     in.endArray();
-                    return new PropertyValue(list);
+                    return new DefaultValue(list);
                 default:
                     throw new AssertionError("Unexpected json type: " + token);
             }
         }
 
         @Override
-        public void write(JsonWriter out, PropertyValue value) {
+        public void write(JsonWriter out, DefaultValue value) {
             throw new UnsupportedOperationException("This should not be needed");
         }
     }

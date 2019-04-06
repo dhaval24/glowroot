@@ -38,7 +38,6 @@ import org.glowroot.common.config.CustomInstrumentationConfig;
 import org.glowroot.common.config.CustomInstrumentationConfig.AlreadyInTransactionBehavior;
 import org.glowroot.common.config.CustomInstrumentationConfig.CaptureKind;
 import org.glowroot.common.config.CustomInstrumentationConfig.MethodModifier;
-import org.glowroot.common.config.CustomInstrumentationConfigProto;
 import org.glowroot.common.config.GaugeConfig;
 import org.glowroot.common.config.ImmutableAdvancedConfig;
 import org.glowroot.common.config.ImmutableAlertConfig;
@@ -50,16 +49,16 @@ import org.glowroot.common.config.ImmutableSyntheticMonitorConfig;
 import org.glowroot.common.config.ImmutableTransactionConfig;
 import org.glowroot.common.config.ImmutableUiDefaultsConfig;
 import org.glowroot.common.config.JvmConfig;
+import org.glowroot.common.config.PropertyValue;
 import org.glowroot.common.config.SyntheticMonitorConfig;
 import org.glowroot.common.config.TransactionConfig;
 import org.glowroot.common.config.UiDefaultsConfig;
 import org.glowroot.common.util.OnlyUsedByTests;
 import org.glowroot.engine.config.AdviceConfig;
+import org.glowroot.engine.config.DefaultValue.PropertyType;
 import org.glowroot.engine.config.ImmutableAdviceConfig;
 import org.glowroot.engine.config.InstrumentationDescriptor;
 import org.glowroot.engine.config.PropertyDescriptor;
-import org.glowroot.engine.config.PropertyValue;
-import org.glowroot.engine.config.PropertyValue.PropertyType;
 import org.glowroot.engine.util.JavaVersion;
 import org.glowroot.instrumentation.api.config.ConfigListener;
 import org.glowroot.wire.api.model.AgentConfigOuterClass.AgentConfig;
@@ -250,8 +249,7 @@ public class ConfigService {
             builder.addInstrumentationConfig(config.toProto());
         }
         for (CustomInstrumentationConfig config : customInstrumentationConfigs) {
-            builder.addCustomInstrumentationConfig(
-                    CustomInstrumentationConfigProto.toProto(config));
+            builder.addCustomInstrumentationConfig(config.toProto());
         }
         builder.setAdvancedConfig(advancedConfig.toProto());
         return builder.build();
@@ -484,12 +482,14 @@ public class ConfigService {
     private static PropertyValue getPropertyValue(@Nullable InstrumentationConfigTemp configTemp,
             PropertyDescriptor propertyDescriptor) {
         if (configTemp == null) {
-            return propertyDescriptor.getValidatedNonNullDefaultValue();
+            return InstrumentationConfig
+                    .toPropertyValue(propertyDescriptor.getValidatedNonNullDefaultValue());
         }
         PropertyValue propertyValue = getValidatedPropertyValue(configTemp.properties(),
                 propertyDescriptor.name(), propertyDescriptor.type());
         if (propertyValue == null) {
-            return propertyDescriptor.getValidatedNonNullDefaultValue();
+            return InstrumentationConfig
+                    .toPropertyValue(propertyDescriptor.getValidatedNonNullDefaultValue());
         }
         return propertyValue;
     }
@@ -502,7 +502,8 @@ public class ConfigService {
         }
         Object value = propertyValue.value();
         if (value == null) {
-            return PropertyDescriptor.getDefaultValue(propertyType);
+            return InstrumentationConfig
+                    .toPropertyValue(PropertyDescriptor.getDefaultValue(propertyType));
         }
         if (PropertyDescriptor.isValidType(value, propertyType)) {
             return propertyValue;
@@ -512,7 +513,8 @@ public class ConfigService {
                     Splitter.on(',').trimResults().omitEmptyStrings().splitToList((String) value));
         } else {
             logger.warn("invalid value for instrumentation property: {}", propertyName);
-            return PropertyDescriptor.getDefaultValue(propertyType);
+            return InstrumentationConfig
+                    .toPropertyValue(PropertyDescriptor.getDefaultValue(propertyType));
         }
     }
 

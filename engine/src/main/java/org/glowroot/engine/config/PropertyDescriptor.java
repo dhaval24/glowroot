@@ -25,7 +25,7 @@ import org.immutables.value.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.glowroot.engine.config.PropertyValue.PropertyType;
+import org.glowroot.engine.config.DefaultValue.PropertyType;
 
 @Gson.TypeAdapters
 @Value.Immutable
@@ -38,7 +38,7 @@ public abstract class PropertyDescriptor {
     public abstract PropertyType type();
 
     @SerializedName("default")
-    public abstract @Nullable PropertyValue defaultValue();
+    public abstract @Nullable DefaultValue defaultValue();
 
     public abstract String label();
 
@@ -53,8 +53,8 @@ public abstract class PropertyDescriptor {
     }
 
     @Gson.Ignore
-    public PropertyValue getValidatedNonNullDefaultValue() {
-        PropertyValue defaultValue = defaultValue();
+    public DefaultValue getValidatedNonNullDefaultValue() {
+        DefaultValue defaultValue = defaultValue();
         if (defaultValue == null) {
             return getDefaultValue(type());
         }
@@ -65,23 +65,23 @@ public abstract class PropertyDescriptor {
             return getDefaultValue(type());
         }
         if (isValidType(value, type())) {
-            return new PropertyValue(value);
+            return new DefaultValue(value);
         } else {
             logger.warn("invalid default value for instrumentation property: {}", name());
             return getDefaultValue(type());
         }
     }
 
-    public static PropertyValue getDefaultValue(PropertyType type) {
+    public static DefaultValue getDefaultValue(PropertyType type) {
         switch (type) {
             case BOOLEAN:
-                return new PropertyValue(false);
+                return new DefaultValue(false);
             case DOUBLE:
-                return new PropertyValue(null);
+                return new DefaultValue(null);
             case STRING:
-                return new PropertyValue("");
+                return new DefaultValue("");
             case LIST:
-                return new PropertyValue(ImmutableList.of());
+                return new DefaultValue(ImmutableList.of());
             default:
                 throw new AssertionError("Unexpected property type: " + type);
         }

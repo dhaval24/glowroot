@@ -27,7 +27,6 @@ import org.immutables.value.Value;
 import org.glowroot.common.config.AdvancedConfig;
 import org.glowroot.common.config.AlertConfig;
 import org.glowroot.common.config.CustomInstrumentationConfig;
-import org.glowroot.common.config.CustomInstrumentationConfigProto;
 import org.glowroot.common.config.GaugeConfig;
 import org.glowroot.common.config.ImmutableAdvancedConfig;
 import org.glowroot.common.config.ImmutableAlertConfig;
@@ -39,7 +38,6 @@ import org.glowroot.common.config.ImmutableTransactionConfig;
 import org.glowroot.common.config.ImmutableUiDefaultsConfig;
 import org.glowroot.common.config.JvmConfig;
 import org.glowroot.common.config.PropertyValue;
-import org.glowroot.common.config.PropertyValueProto;
 import org.glowroot.common.config.SyntheticMonitorConfig;
 import org.glowroot.common.config.TransactionConfig;
 import org.glowroot.common.config.UiDefaultsConfig;
@@ -106,8 +104,7 @@ abstract class AllConfigDto {
             builder.addInstrumentationConfig(config.toProto());
         }
         for (CustomInstrumentationConfig config : customInstrumentation()) {
-            builder.addCustomInstrumentationConfig(
-                    CustomInstrumentationConfigProto.toProto(config));
+            builder.addCustomInstrumentationConfig(config.toProto());
         }
         return builder.build();
     }
@@ -136,8 +133,7 @@ abstract class AllConfigDto {
         }
         for (AgentConfig.CustomInstrumentationConfig config : agentConfig
                 .getCustomInstrumentationConfigList()) {
-            builder.addCustomInstrumentation(
-                    CustomInstrumentationConfigProto.create(config));
+            builder.addCustomInstrumentation(CustomInstrumentationConfig.create(config));
         }
         return builder.version(Versions.getVersion(agentConfig))
                 .build();
@@ -160,7 +156,7 @@ abstract class AllConfigDto {
             for (Map.Entry<String, PropertyValue> entry : properties().entrySet()) {
                 InstrumentationProperty.Builder property = InstrumentationProperty.newBuilder()
                         .setName(entry.getKey())
-                        .setValue(PropertyValueProto.toProto(entry.getValue()));
+                        .setValue(entry.getValue().toProto());
                 builder.addProperty(property);
             }
             return builder.build();
@@ -173,7 +169,7 @@ abstract class AllConfigDto {
                             .id(config.getId());
             for (InstrumentationProperty property : config.getPropertyList()) {
                 builder.putProperties(property.getName(),
-                        PropertyValueProto.create(property.getValue()));
+                        PropertyValue.create(property.getValue()));
             }
             return builder.build();
         }

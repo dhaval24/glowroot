@@ -20,7 +20,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.ServiceLoader;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
@@ -34,7 +33,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
-import org.glowroot.engine.config.PropertyValue.PropertyValueTypeAdapter;
+import org.glowroot.engine.config.DefaultValue.PropertyValueTypeAdapter;
 
 import static com.google.common.base.Charsets.ISO_8859_1;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -45,10 +44,10 @@ public class InstrumentationDescriptors {
 
     static {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        for (TypeAdapterFactory factory : ServiceLoader.load(TypeAdapterFactory.class)) {
-            gsonBuilder.registerTypeAdapterFactory(factory);
-        }
-        gsonBuilder.registerTypeAdapter(PropertyValue.class, new PropertyValueTypeAdapter());
+        gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersInstrumentationDescriptor());
+        gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersPropertyDescriptor());
+        gsonBuilder.registerTypeAdapterFactory(new GsonAdaptersAdviceConfig());
+        gsonBuilder.registerTypeAdapter(DefaultValue.class, new PropertyValueTypeAdapter());
         gsonBuilder.registerTypeAdapterFactory(new EnumTypeAdapterFactory());
         gson = gsonBuilder.create();
     }
