@@ -37,7 +37,6 @@
     <module>build/multi-lib-tests</module>
     <module>annotation-api</module>
     <module>instrumentation-api</module>
-    <module>instrumentation-config</module>
     <module>engine</module>
     <module>shared/common</module>
     <module>shared/common2</module>

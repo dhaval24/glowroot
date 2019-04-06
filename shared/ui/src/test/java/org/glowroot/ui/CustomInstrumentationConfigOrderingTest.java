@@ -38,8 +38,6 @@ public class CustomInstrumentationConfigOrderingTest {
             .setTransactionType("")
             .setTransactionNameTemplate("")
             .setTransactionUserTemplate("")
-            .setEnabledProperty("")
-            .setTraceEntryEnabledProperty("")
             .build();
 
     private final CustomInstrumentationConfig right = CustomInstrumentationConfig.newBuilder()
@@ -53,8 +51,6 @@ public class CustomInstrumentationConfigOrderingTest {
             .setTransactionType("")
             .setTransactionNameTemplate("")
             .setTransactionUserTemplate("")
-            .setEnabledProperty("")
-            .setTraceEntryEnabledProperty("")
             .build();
 
     @Test

@@ -364,8 +364,6 @@ class CustomInstrumentationJsonService {
         abstract @Nullable Integer traceEntryStackThresholdMillis();
         abstract boolean traceEntryCaptureSelfNested();
         abstract String timerName();
-        abstract String enabledProperty();
-        abstract String traceEntryEnabledProperty();
         abstract Optional<String> version(); // absent for insert operations
 
         private CustomInstrumentationConfig convert() {
@@ -411,8 +409,6 @@ class CustomInstrumentationJsonService {
             }
             return builder.setTraceEntryCaptureSelfNested(traceEntryCaptureSelfNested())
                     .setTimerName(timerName())
-                    .setEnabledProperty(enabledProperty())
-                    .setTraceEntryEnabledProperty(traceEntryEnabledProperty())
                     .build();
         }
 
@@ -460,8 +456,6 @@ class CustomInstrumentationJsonService {
             }
             return builder.traceEntryCaptureSelfNested(config.getTraceEntryCaptureSelfNested())
                     .timerName(config.getTimerName())
-                    .enabledProperty(config.getEnabledProperty())
-                    .traceEntryEnabledProperty(config.getTraceEntryEnabledProperty())
                     .version(Versions.getVersion(config))
                     .build();
         }

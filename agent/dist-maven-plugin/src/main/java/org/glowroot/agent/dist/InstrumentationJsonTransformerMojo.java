@@ -33,14 +33,10 @@ public class InstrumentationJsonTransformerMojo extends AbstractMojo {
     @Parameter(readonly = true, defaultValue = "${project}")
     private @Nullable MavenProject project;
 
-    @Parameter
-    private InstrumentationProperty[] instrumentationProperties = new InstrumentationProperty[0];
-
     @Override
     public void execute() throws MojoExecutionException {
         checkNotNull(project);
-        InstrumentationJsonTransformer packager =
-                new InstrumentationJsonTransformer(project, instrumentationProperties);
+        InstrumentationJsonTransformer packager = new InstrumentationJsonTransformer(project);
         try {
             packager.execute();
         } catch (Exception e) {
