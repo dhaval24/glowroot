@@ -260,6 +260,12 @@ public class PreInitializeWeavingClasses {
         types.add("org.glowroot.engine.bytecode.api.ThreadContextPlus");
         types.add("org.glowroot.engine.bytecode.api.ThreadContextThreadLocal$Holder");
         types.add("org.glowroot.engine.bytecode.api.Util");
+        types.add("org.glowroot.engine.config.ImmutableAdviceConfig");
+        types.add("org.glowroot.engine.config.ImmutableAdviceConfig$Builder");
+        types.add("org.glowroot.engine.config.ImmutableAdviceConfig$InitShim");
+        types.add("org.glowroot.engine.config.AdviceConfig");
+        types.add("org.glowroot.engine.config.AdviceConfig$CaptureKind");
+        types.add("org.glowroot.engine.config.AdviceConfig$AlreadyInTransactionBehavior");
         types.add("org.glowroot.engine.util.IterableWithSelfRemovableEntries");
         types.add("org.glowroot.engine.util.IterableWithSelfRemovableEntries$ElementIterator");
         types.add("org.glowroot.engine.util.IterableWithSelfRemovableEntries$Entry");
@@ -410,15 +416,6 @@ public class PreInitializeWeavingClasses {
         types.add("org.glowroot.instrumentation.api.weaving.OnThrow");
         types.add("org.glowroot.instrumentation.api.weaving.Pointcut");
         types.add("org.glowroot.instrumentation.api.weaving.Shim");
-        types.add("org.glowroot.instrumentation.config.ImmutableCustomInstrumentationConfig");
-        types.add("org.glowroot.instrumentation.config.ImmutableCustomInstrumentationConfig"
-                + "$Builder");
-        types.add("org.glowroot.instrumentation.config.ImmutableCustomInstrumentationConfig"
-                + "$InitShim");
-        types.add("org.glowroot.instrumentation.config.CustomInstrumentationConfig");
-        types.add("org.glowroot.instrumentation.config.CustomInstrumentationConfig$CaptureKind");
-        types.add("org.glowroot.instrumentation.config.CustomInstrumentationConfig"
-                + "$AlreadyInTransactionBehavior");
         return types;
     }
 
