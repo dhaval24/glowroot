@@ -1,7 +1,7 @@
 {
   "name": "EJB",
   "id": "ejb",
-  "instrumentation": [
+  "advice": [
     {
       "classAnnotation": "javax.ejb.Singleton",
       "methodAnnotation": "javax.ejb.Timeout|javax.ejb.Schedule|javax.ejb.Schedules",

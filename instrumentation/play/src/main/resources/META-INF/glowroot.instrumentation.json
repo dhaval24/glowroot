@@ -10,7 +10,7 @@
       "description": "Set transaction name to the controller's className#methodName instead of using the route's URL mapping"
     }
   ],
-  "instrumentation": [
+  "advice": [
     {
       "className": "play.mvc.Controller",
       "methodName": "renderTemplate",

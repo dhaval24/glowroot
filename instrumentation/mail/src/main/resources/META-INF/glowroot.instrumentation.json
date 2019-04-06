@@ -1,7 +1,7 @@
 {
   "name": "Mail",
   "id": "mail",
-  "instrumentation": [
+  "advice": [
     {
       "className": "javax.mail.Service",
       "methodName": "connect",

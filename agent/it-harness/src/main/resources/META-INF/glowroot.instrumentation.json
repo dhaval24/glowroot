@@ -1,7 +1,7 @@
 {
   "name": "IT Harness",
   "id": "glowroot-it-harness",
-  "instrumentation": [
+  "advice": [
     {
       "className": "org.glowroot.agent.it.harness.TransactionMarker",
       "methodName": "transactionMarker",

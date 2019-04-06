@@ -104,7 +104,7 @@
       "checkboxLabel": "Capture request server port using ServletRequest.getServerPort()"
     }
   ],
-  "instrumentation": [
+  "advice": [
     {
       "className": "javax.servlet.ServletContextListener",
       "methodName": "contextInitialized",

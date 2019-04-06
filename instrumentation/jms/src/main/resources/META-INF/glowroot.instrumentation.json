@@ -1,7 +1,7 @@
 {
   "name": "JMS",
   "id": "jms",
-  "instrumentation": [
+  "advice": [
     {
       "className": "javax.jms.MessageListener",
       "methodName": "onMessage",

@@ -31,7 +31,7 @@ public abstract class InstrumentationDescriptor {
     public abstract String id();
     public abstract String name();
     public abstract ImmutableList<PropertyDescriptor> properties();
-    @JsonProperty("instrumentation")
+    @JsonProperty("advice")
     public abstract ImmutableList<AdviceConfig> adviceConfigs();
     public abstract ImmutableList<String> classes();
     @Value.Default

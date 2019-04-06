@@ -1,7 +1,7 @@
 {
   "name": "Hibernate",
   "id": "hibernate",
-  "instrumentation": [
+  "advice": [
     {
       "className": "org.hibernate.Criteria",
       "methodName": "list",

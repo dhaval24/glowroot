@@ -56,7 +56,7 @@
       "label": "A number with explicit null default value"
     }
   ],
-  "instrumentation": [
+  "advice": [
     {
       "className": "org.glowroot.agent.tests.app.LevelFour",
       "methodName": "call",

@@ -1,7 +1,7 @@
 {
   "name": "Quartz",
   "id": "quartz",
-  "instrumentation": [
+  "advice": [
     {
       "className": "org.quartz.Job",
       "methodName": "execute",

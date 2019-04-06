@@ -1,7 +1,7 @@
 {
   "name": "Kafka",
   "id": "kafka",
-  "instrumentation": [
+  "advice": [
     {
       "className": "org.apache.kafka.clients.consumer.KafkaConsumer",
       "methodName": "poll",

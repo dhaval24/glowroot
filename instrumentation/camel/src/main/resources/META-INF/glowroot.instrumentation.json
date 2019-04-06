@@ -1,7 +1,7 @@
 {
   "name": "Camel",
   "id": "camel",
-  "instrumentation": [
+  "advice": [
     {
       "className": "org.apache.camel.processor.Pipeline",
       "methodName": "process",

@@ -1,7 +1,7 @@
 {
   "name": "JSF",
   "id": "jsf",
-  "instrumentation": [
+  "advice": [
     {
       "className": "com.sun.faces.lifecycle.ApplyRequestValuesPhase",
       "methodName": "execute",
