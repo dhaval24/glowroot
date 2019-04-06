@@ -388,6 +388,7 @@ public class JavaagentContainer implements Container {
                     || name.matches("HdrHistogram-.*\\.jar")
                     || name.matches("instrumentation-api-.*\\.jar")
                     || name.matches("jackson-.*\\.jar")
+                    || name.matches("gson-.*\\.jar")
                     || name.matches("logback-.*\\.jar")
                     // javax.servlet-api is needed because logback-classic has
                     // META-INF/services/javax.servlet.ServletContainerInitializer
