@@ -101,9 +101,7 @@ glowroot.controller('ConfigCustomInstrumentationCtrl', [
       transactionOuter: false,
       traceEntryMessageTemplate: '',
       traceEntryCaptureSelfNested: false,
-      timerName: '',
-      enabledProperty: '',
-      traceEntryEnabledProperty: ''
+      timerName: ''
     };
 
     if (version) {

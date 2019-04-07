@@ -182,9 +182,7 @@ glowroot.controller('ConfigCustomInstrumentationListCtrl', [
           transactionOuter: false,
           traceEntryMessageTemplate: '',
           traceEntryCaptureSelfNested: false,
-          timerName: '',
-          enabledProperty: '',
-          traceEntryEnabledProperty: ''
+          timerName: ''
         };
         angular.extend(base, config);
         postData.configs.push(base);
