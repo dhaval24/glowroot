@@ -34,8 +34,8 @@ import org.junit.Test;
 
 import org.glowroot.agent.it.harness.AppUnderTest;
 import org.glowroot.agent.it.harness.Container;
-import org.glowroot.agent.it.harness.Containers;
 import org.glowroot.agent.it.harness.TransactionMarker;
+import org.glowroot.agent.it.harness.impl.JavaagentContainer;
 import org.glowroot.wire.api.model.TraceOuterClass.Trace;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -47,7 +47,7 @@ public class JmsIT {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        container = Containers.create();
+        container = JavaagentContainer.create();
     }
 
     @AfterClass

@@ -32,6 +32,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import org.glowroot.engine.config.DefaultValue.PropertyValueTypeAdapter;
 
@@ -84,12 +85,12 @@ public class InstrumentationDescriptors {
             }
             return new TypeAdapter<T>() {
                 @Override
-                public T read(JsonReader reader) throws IOException {
-                    if (reader.peek() == JsonToken.NULL) {
-                        reader.nextNull();
+                public @Nullable T read(JsonReader in) throws IOException {
+                    if (in.peek() == JsonToken.NULL) {
+                        in.nextNull();
                         return null;
                     } else {
-                        return enumConstants.get(reader.nextString());
+                        return enumConstants.get(in.nextString());
                     }
                 }
                 @Override

@@ -11,7 +11,7 @@
       "nestingGroup": "kafka-poll",
       "captureKind": "trace-entry",
       "traceEntryMessageTemplate": "kafka poll => {{_.count}}",
-      "timerName": "kafka poll",
+      "timerName": "kafka poll"
     }
   ],
   "classes": [

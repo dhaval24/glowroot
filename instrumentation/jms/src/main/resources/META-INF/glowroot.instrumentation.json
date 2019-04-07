@@ -13,7 +13,7 @@
       "transactionType": "Background",
       "transactionNameTemplate": "JMS Message: {{this.class.simpleName}}",
       "alreadyInTransactionBehavior": "capture-trace-entry",
-      "timerName": "jms message",
+      "timerName": "jms message"
     },
     {
       "className": "javax.jms.MessageProducer",
