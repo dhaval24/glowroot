@@ -23,7 +23,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.glowroot.engine.weaving.GlowrootServiceSPI;
+import org.glowroot.engine.annotation.spi.GlowrootServiceSPI;
 import org.glowroot.instrumentation.api.ThreadContext.Priority;
 
 public class GlowrootServiceImpl implements GlowrootServiceSPI {

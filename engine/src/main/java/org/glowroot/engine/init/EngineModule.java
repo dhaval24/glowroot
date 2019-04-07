@@ -34,6 +34,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glowroot.engine.annotation.spi.GlowrootServiceHolder;
+import org.glowroot.engine.annotation.spi.GlowrootServiceSPI;
 import org.glowroot.engine.bytecode.api.BytecodeServiceHolder;
 import org.glowroot.engine.bytecode.api.ThreadContextThreadLocal;
 import org.glowroot.engine.config.AdviceConfig;
@@ -51,8 +53,6 @@ import org.glowroot.engine.weaving.AgentSPI;
 import org.glowroot.engine.weaving.AnalyzedWorld;
 import org.glowroot.engine.weaving.BytecodeServiceImpl;
 import org.glowroot.engine.weaving.BytecodeServiceImpl.OnEnteringMain;
-import org.glowroot.engine.weaving.GlowrootServiceHolder;
-import org.glowroot.engine.weaving.GlowrootServiceSPI;
 import org.glowroot.engine.weaving.Java9;
 import org.glowroot.engine.weaving.PointcutClassFileTransformer;
 import org.glowroot.engine.weaving.PreloadSomeSuperTypesCache;

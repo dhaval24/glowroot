@@ -23,7 +23,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.glowroot.annotation.api.internal.FwdGlowrootService;
 import org.glowroot.annotation.api.internal.GlowrootService;
 import org.glowroot.annotation.api.internal.NopGlowrootService;
-import org.glowroot.engine.weaving.GlowrootServiceSPI;
+import org.glowroot.engine.annotation.spi.GlowrootServiceSPI;
 
 public class Glowroot {
 
@@ -32,7 +32,7 @@ public class Glowroot {
     private static GlowrootService getGlowrootService() {
         Class<?> clazz;
         try {
-            clazz = Class.forName("org.glowroot.engine.weaving.GlowrootServiceHolder");
+            clazz = Class.forName("org.glowroot.engine.annotation.spi.GlowrootServiceHolder");
         } catch (ClassNotFoundException e) {
             // this is ok, just means Glowroot is not running
             return NopGlowrootService.INSTANCE;

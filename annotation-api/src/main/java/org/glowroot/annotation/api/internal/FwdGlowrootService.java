@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import org.glowroot.engine.weaving.GlowrootServiceSPI;
+import org.glowroot.engine.annotation.spi.GlowrootServiceSPI;
 
 public class FwdGlowrootService implements GlowrootService {
 

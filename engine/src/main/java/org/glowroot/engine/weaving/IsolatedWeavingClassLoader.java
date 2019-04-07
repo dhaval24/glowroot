@@ -230,10 +230,9 @@ public class IsolatedWeavingClassLoader extends ClassLoader {
                 || name.equals(Beans.class.getName())) {
             return false;
         }
-        if (name.startsWith("org.glowroot.annotation.api.")
-                || name.startsWith("org.glowroot.instrumentation.api.")
-                || name.startsWith("org.glowroot.instrumentation.config.")
-                || name.startsWith("org.glowroot.engine.bytecode.api.")) {
+        if (name.startsWith("org.glowroot.instrumentation.api.")
+                || name.startsWith("org.glowroot.engine.bytecode.api.")
+                || name.startsWith("org.glowroot.engine.annotation.spi.")) {
             return true;
         }
         return false;
