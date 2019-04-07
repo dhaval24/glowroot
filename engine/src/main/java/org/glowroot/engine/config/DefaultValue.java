@@ -56,6 +56,7 @@ public class DefaultValue {
                     return new DefaultValue(in.nextString());
                 case BEGIN_ARRAY:
                     List<String> list = Lists.newArrayList();
+                    in.beginArray();
                     while (in.peek() != JsonToken.END_ARRAY) {
                         list.add(in.nextString());
                     }

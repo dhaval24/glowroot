@@ -7,6 +7,14 @@
       "type": "string",
       "default": "xyz",
       "label": "Test"
+    },
+    {
+      "name": "test2",
+      "type": "list",
+      "default": [
+        "abc"
+      ],
+      "label": "Test2"
     }
   ],
   "advice": [
