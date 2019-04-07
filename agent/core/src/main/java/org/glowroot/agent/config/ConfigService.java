@@ -558,7 +558,7 @@ public class ConfigService {
         return AdviceConfig.CaptureKind.valueOf(captureKind.name());
     }
 
-    private static @Nullable AdviceConfig.AlreadyInTransactionBehavior toAdviceConfig(
+    private static AdviceConfig. /*@Nullable*/ AlreadyInTransactionBehavior toAdviceConfig(
             @Nullable AlreadyInTransactionBehavior alreadyInTransactionBehavior) {
         if (alreadyInTransactionBehavior == null) {
             return null;
